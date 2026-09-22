@@ -1,0 +1,178 @@
+.hero {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  border-bottom: 1px solid var(--c-line);
+}
+
+/* ---- levo ---- */
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 26px;
+  padding: 64px 40px 56px;
+  border-right: 1px solid var(--c-line);
+}
+
+.eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font: 600 11px var(--f-body);
+  letter-spacing: 0.2em;
+  color: var(--c-accent);
+}
+
+.dash {
+  width: 26px;
+  height: 2px;
+  background: var(--c-accent);
+}
+
+.title {
+  /* 76px na punoj širini, skuplja se na užim ekranima */
+  font: 800 clamp(40px, 6.2vw, 76px) / 0.94 var(--f-display);
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+}
+
+.accent { color: var(--c-accent); }
+
+.lead {
+  max-width: 540px;
+  font: 400 17px/1.6 var(--f-body);
+  color: var(--c-ink-3);
+}
+
+/* dva dugmeta spojena u jedan uokvireni blok */
+.buttons {
+  display: flex;
+  border: 1px solid var(--c-accent);
+}
+
+.btnPrimary,
+.btnSecondary {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 18px 32px;
+  font: 800 14px var(--f-display);
+  letter-spacing: 0.08em;
+  white-space: nowrap;
+}
+
+.btnPrimary {
+  background: var(--c-accent);
+  color: var(--c-ink);
+}
+.btnPrimary:hover { background: var(--c-accent-soft); color: var(--c-ink); }
+
+.btnSecondary {
+  padding: 18px 30px;
+  border-left: 1px solid var(--c-accent);
+  color: var(--c-accent);
+}
+.btnSecondary:hover { background: var(--c-accent); color: var(--c-ink); }
+
+.callRow {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 14px;
+  width: 100%;
+  margin-top: 6px;
+  padding-top: 22px;
+  border-top: 1px solid var(--c-line);
+}
+
+.callLabel {
+  font: 500 12px var(--f-body);
+  letter-spacing: 0.14em;
+  color: var(--c-ink-4);
+}
+
+.callPhone {
+  font: 800 32px var(--f-display);
+  letter-spacing: -0.02em;
+  color: var(--c-ink);
+}
+a.callPhone:hover { color: var(--c-accent); }
+
+/* ---- desno ---- */
+.media {
+  position: relative;
+  min-height: 460px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--c-bg-alt);
+}
+
+.mediaLabel {
+  font: 500 12px/1.7 var(--f-body);
+  letter-spacing: 0.14em;
+  color: var(--c-ink-4);
+  text-align: center;
+}
+
+.badge {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  padding: 20px 26px;
+  background: var(--c-bg);
+  border-top: 1px solid var(--c-line);
+  border-right: 1px solid var(--c-line);
+}
+
+.badgeValue {
+  font: 800 34px var(--f-display);
+  letter-spacing: -0.02em;
+  color: var(--c-accent);
+}
+
+.badgeLabel {
+  font: 500 11px var(--f-body);
+  letter-spacing: 0.14em;
+  color: var(--c-ink-4);
+}
+
+/* kratke verzije teksta se vide samo na mobilnom */
+.short { display: none; }
+
+/* ============ responsive ============ */
+
+/* Tablet: kolone jedna ispod druge */
+@media (max-width: 900px) {
+  .hero { grid-template-columns: 1fr; }
+  .content { border-right: none; border-bottom: 1px solid var(--c-line); }
+  .media { min-height: 360px; }
+}
+
+/* Mobilni — po dizajnu */
+@media (max-width: 720px) {
+  .long { display: none; }
+  .short { display: inline; }
+
+  .content {
+    gap: 16px;
+    padding: 22px 16px;
+    border-bottom: none;
+  }
+  .eyebrow { font-size: 10px; }
+  .dash { display: none; }
+  .title { font-size: 40px; line-height: 0.98; letter-spacing: 0; }
+  .lead { font-size: 15px; line-height: 1.55; }
+
+  .buttons { flex-direction: column; width: 100%; border: none; gap: 16px; }
+  .btnPrimary, .btnSecondary { height: 52px; padding: 0; letter-spacing: 0.1em; }
+  .btnSecondary { border: 1px solid var(--c-accent); }
+
+  .callRow { display: none; } /* broj je već u headeru */
+
+  /* fotografija ulazi u isti blok, ispod dugmadi */
+  .hero { border-bottom: 1px solid var(--c-line); }
+  .media { min-height: 160px; margin: 0 16px 22px; }
+  .mediaLabel { font-size: 11px; }
+  .badge { display: none; }
+}

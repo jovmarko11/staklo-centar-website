@@ -1,4 +1,6 @@
 import Header from "@/components/Header";
+import Hero from "@/components/Hero";
+import Features from "@/components/Features";
 import styles from "./page.module.css";
 
 export default function Home() {
@@ -6,8 +8,9 @@ export default function Home() {
     <div className={styles.page}>
       <Header />
       <main>
-        {/* sledeće sekcije: Hero, Prednosti, Usluge, Kako radimo, Galerija,
-            Veleprodaja, Zašto mi, Kontakt, Footer */}
+        <Hero />
+        <Features />
+        {/* sledeće: Usluge, Kako radimo, Galerija, Veleprodaja, Zašto mi, Kontakt, Footer */}
       </main>
     </div>
   );
