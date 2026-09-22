@@ -33,7 +33,7 @@
   top: 50%;
   transform: translate(-50%, -50%);
   padding: 0 12px;
-  background: var(--c-bg);
+  background: var(--dim-bg, var(--c-bg)); /* sekcija može da prosledi svoju pozadinu */
   font: 600 10px var(--f-body);
   letter-spacing: 0.2em;
   color: var(--c-ink-4);

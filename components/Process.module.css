@@ -1,16 +1,23 @@
 .process {
+  --dim-bg: var(--c-bg-alt);
   padding: 64px 40px;
   background: var(--c-bg-alt);
   border-bottom: 1px solid var(--c-line);
 }
 
-.title {
+.head {
+  display: flex;
+  align-items: center;
+  gap: 28px;
   margin-bottom: 34px;
-  font: 800 44px/1.02 var(--f-display);
 }
 
-/* Trik za tanke linije između kartica: pozadina grida je boja linije,
-   gap je 1px, a kartice su bele — kroz razmak "proviri" linija. */
+.title {
+  font: 800 44px/1.02 var(--f-display);
+  white-space: nowrap;
+}
+
+/* Linije između kartica: pozadina grida je boja linije, gap 1px. */
 .grid {
   list-style: none;
   margin: 0;
@@ -19,20 +26,132 @@
   grid-template-columns: repeat(4, 1fr);
   gap: 1px;
   background: var(--c-line-strong);
+  border: 1px solid var(--c-line-strong);
 }
 
 .step {
+  position: relative;
   display: flex;
   flex-direction: column;
   gap: 12px;
-  padding: 28px 24px;
+  padding: 0 24px 20px;
   background: var(--c-bg);
+  transition: background-color 0.25s;
+}
+.step:hover { background: var(--c-bg); }
+
+/* ================= šina toka ================= */
+.track {
+  position: relative;
+  height: 34px;
+  margin: 0 -24px 6px;           /* preko cele širine kartice */
+  border-bottom: 1px solid var(--c-line);
+}
+/* osnovna isprekidana linija */
+.track::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  border-top: 1px dashed var(--c-line-strong);
 }
 
+/* narandžasti deo koji se "puni" */
+.seg {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: calc(50% - 1px);
+  height: 2px;
+  background: var(--c-accent);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* čvor: mali kvadrat na početku svake kartice */
+.node {
+  position: absolute;
+  z-index: 1;
+  left: 24px;
+  top: 50%;
+  width: 10px;
+  height: 10px;
+  margin-top: -5px;
+  background: var(--c-bg);
+  border: 1.5px solid var(--c-ink-4);
+  transition: background-color 0.25s, border-color 0.25s, transform 0.3s ease-out;
+}
+
+/* vrh strelice na desnom kraju (ka sledećem koraku) */
+.arrowHead {
+  position: absolute;
+  z-index: 1;
+  right: 6px;
+  top: 50%;
+  width: 7px;
+  height: 7px;
+  margin-top: -3.5px;
+  border-top: 1.5px solid var(--c-ink-4);
+  border-right: 1.5px solid var(--c-ink-4);
+  transform: rotate(45deg);
+  transition: border-color 0.25s;
+}
+
+/* Hover na korak N → popuni šinu i čvorove od 1 do N (bez JavaScript-a, :has) */
+.grid:has(.step:nth-child(1):hover) .step:nth-child(-n + 1) .seg,
+.grid:has(.step:nth-child(2):hover) .step:nth-child(-n + 2) .seg,
+.grid:has(.step:nth-child(3):hover) .step:nth-child(-n + 3) .seg,
+.grid:has(.step:nth-child(4):hover) .step:nth-child(-n + 4) .seg { transform: scaleX(1); }
+
+.grid:has(.step:nth-child(1):hover) .step:nth-child(-n + 1) .node,
+.grid:has(.step:nth-child(2):hover) .step:nth-child(-n + 2) .node,
+.grid:has(.step:nth-child(3):hover) .step:nth-child(-n + 3) .node,
+.grid:has(.step:nth-child(4):hover) .step:nth-child(-n + 4) .node {
+  background: var(--c-accent);
+  border-color: var(--c-accent);
+}
+.grid:has(.step:nth-child(1):hover) .step:nth-child(-n + 1) .arrowHead,
+.grid:has(.step:nth-child(2):hover) .step:nth-child(-n + 2) .arrowHead,
+.grid:has(.step:nth-child(3):hover) .step:nth-child(-n + 3) .arrowHead,
+.grid:has(.step:nth-child(4):hover) .step:nth-child(-n + 4) .arrowHead { border-color: var(--c-accent); }
+
+/* kaskadno punjenje: svaki sledeći segment malo kasni */
+.step:nth-child(2) .seg { transition-delay: 0.08s; }
+.step:nth-child(3) .seg { transition-delay: 0.16s; }
+.step:nth-child(4) .seg { transition-delay: 0.24s; }
+.step:hover .node { transform: rotate(45deg); }
+
+/* ================= sadržaj kartice ================= */
+.top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+/* broj: na hover se puni šrafurom (isti potpis kao dugmad) */
 .num {
   font: 800 42px/1 var(--f-display);
   color: var(--c-accent);
+  -webkit-text-stroke: 1.5px var(--c-accent);
+  background: repeating-linear-gradient(-45deg, var(--c-accent) 0 1.5px, transparent 1.5px 5px);
+  -webkit-background-clip: text;
+  background-clip: text;
+  transition: color 0.3s;
 }
+.step:hover .num { color: transparent; }
+
+.icon {
+  width: 40px;
+  height: 40px;
+  color: var(--c-ink-4);
+  transition: color 0.25s;
+}
+.icon :global(*) { stroke-dasharray: 1; stroke-dashoffset: 0; }
+.step:hover .icon { color: var(--c-accent); }
+.step:hover .icon :global(*) { animation: redraw 0.8s cubic-bezier(0.65, 0, 0.35, 1); }
+@keyframes redraw { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
 
 .name { font: 700 19px var(--f-display); }
 
@@ -41,26 +160,54 @@
   color: var(--c-ink-3);
 }
 
+/* donja "specifikacija" koraka */
+.meta {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: auto;
+  padding-top: 12px;
+  border-top: 1px dashed var(--c-line-strong);
+  font: 600 10px var(--f-body);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+.metaKey { color: var(--c-ink-4); }
+.metaVal { color: var(--c-ink); text-align: right; transition: color 0.25s; }
+.step:hover .metaVal { color: var(--c-accent); }
+
 /* ============ responsive ============ */
+
+@media (max-width: 1000px) {
+  .dimension { display: none; }
+}
 
 @media (max-width: 900px) {
   .grid { grid-template-columns: repeat(2, 1fr); }
+  .arrowHead { display: none; }
 }
 
-/* Mobilni — po dizajnu: bela pozadina, 2×2, samo broj + naziv */
+/* Mobilni — po dizajnu: bela pozadina, 2×2, broj + naziv */
 @media (max-width: 720px) {
   .process {
     padding: 26px 16px 0;
     background: var(--c-bg);
     border-bottom: none;
   }
-  .title { margin-bottom: 14px; font-size: 26px; line-height: 1.2; }
+  .head { margin-bottom: 14px; }
+  .title { font-size: 26px; line-height: 1.2; }
 
+  .grid { border: none; }
   .step { gap: 8px; padding: 16px; }
+  .track, .desc, .meta { display: none; }
   .num { font-size: 28px; }
+  .icon { width: 26px; height: 26px; }
   .name {
     font: 600 13px/1.35 var(--f-body);
     text-transform: none;
   }
-  .desc { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .step:hover .icon :global(*) { animation: none; }
 }

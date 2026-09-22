@@ -112,3 +112,48 @@ export function IconSuctionLifter(props) {
     </svg>
   );
 }
+
+/* ---------- 48×48: koraci "Kako radimo" ---------- */
+
+export function IconPhoneCamera(props) {
+  return (
+    <svg viewBox="0 0 48 48" strokeWidth="1.5" {...common} {...props}>
+      <path pathLength="1" d="M14 4 H34 V44 H14 Z" />
+      <path pathLength="1" d="M21 8 H27 M22 40 H26" />
+      <path pathLength="1" d="M18 15 H30 V32 H18 Z" />
+      <circle pathLength="1" cx="24" cy="23.5" r="4" />
+    </svg>
+  );
+}
+
+export function IconCalendar(props) {
+  return (
+    <svg viewBox="0 0 48 48" strokeWidth="1.5" {...common} {...props}>
+      <path pathLength="1" d="M6 10 H42 V42 H6 Z" />
+      <path pathLength="1" d="M6 18 H42 M15 5 V14 M33 5 V14" />
+      <path pathLength="1" d="M12 25 H17 M21.5 25 H26.5 M31 25 H36 M12 33 H17 M21.5 33 H26.5" />
+      <path pathLength="1" d="M30 30 H37 V37 H30 Z" />
+    </svg>
+  );
+}
+
+export function IconWindshieldInstall(props) {
+  return (
+    <svg viewBox="0 0 48 48" strokeWidth="1.5" {...common} {...props}>
+      <path pathLength="1" d="M10 8 Q24 4 38 8 L42 22 Q24 25 6 22 Z" />
+      <path pathLength="1" d="M24 26 V37 M19.5 32.5 L24 37 L28.5 32.5" />
+      <path pathLength="1" d="M4 44 L8 40 H40 L44 44" />
+    </svg>
+  );
+}
+
+export function IconCertificate(props) {
+  return (
+    <svg viewBox="0 0 48 48" strokeWidth="1.5" {...common} {...props}>
+      <path pathLength="1" d="M5 7 H43 V33 H5 Z" />
+      <path pathLength="1" d="M11 14 H37 M11 20 H27" />
+      <circle pathLength="1" cx="34" cy="31" r="6" />
+      <path pathLength="1" d="M30.5 36 L28.5 44 L32 42 L34 45 L36 37" />
+    </svg>
+  );
+}
