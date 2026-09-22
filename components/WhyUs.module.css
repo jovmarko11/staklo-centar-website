@@ -1,0 +1,249 @@
+.why {
+  padding: 64px 40px;
+  border-bottom: 1px solid var(--c-line);
+}
+
+/* ================= naslov + kotna linija ================= */
+.head {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  margin-bottom: 32px;
+}
+
+.title {
+  font: 800 44px/1.02 var(--f-display);
+  white-space: nowrap;
+}
+
+/* linija sa graničnicima na krajevima i strelicama — kao kota na crtežu */
+.dimension {
+  position: relative;
+  flex: 1;
+  height: 14px;
+  border-left: 1px solid var(--c-ink-4);
+  border-right: 1px solid var(--c-ink-4);
+}
+.dimension::before {                         /* sama linija */
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  border-top: 1px solid var(--c-line-strong);
+}
+.dimension::after {                          /* strelice (dva mala trougla) */
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    conic-gradient(from 60deg at 0 50%, var(--c-ink-4) 60deg, transparent 0) left center / 7px 7px no-repeat,
+    conic-gradient(from 240deg at 100% 50%, var(--c-ink-4) 60deg, transparent 0) right center / 7px 7px no-repeat;
+}
+
+.dimensionLabel {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  padding: 0 12px;
+  background: var(--c-bg);
+  font: 600 10px var(--f-body);
+  letter-spacing: 0.2em;
+  color: var(--c-ink-4);
+  white-space: nowrap;
+}
+
+/* ================= brojke ================= */
+.stats {
+  list-style: none;
+  margin: 0 0 28px;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: var(--c-line-strong);
+  border: 1px solid var(--c-line-strong);
+}
+
+.stat {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: 26px 26px 22px;
+  background: var(--c-bg);
+  transition: background-color 0.25s ease-out;
+}
+.stat:hover { background: var(--c-bg-alt); }
+
+.crosshair {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 18px;
+  height: 18px;
+  color: var(--c-line-strong);
+  transition: transform 0.4s ease-out, color 0.25s;
+}
+.stat:hover .crosshair {
+  transform: rotate(90deg);
+  color: var(--c-accent);
+}
+
+.value {
+  font: 800 52px/1 var(--f-display);
+  letter-spacing: -0.03em;
+}
+.valueAccent { color: var(--c-accent); }
+.suffix { color: var(--c-accent); }
+.valueAccent .suffix { color: var(--c-ink-4); font-size: 0.55em; letter-spacing: 0; }
+
+.label {
+  margin-top: 8px;
+  font: 500 12px var(--f-body);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--c-ink-4);
+}
+
+/* lenjir: sitne i krupne podele; na hover narandžasta linija "prebriše" skalu */
+.ruler {
+  position: relative;
+  height: 14px;
+  margin-top: 22px;
+  border-bottom: 1px solid var(--c-ink-4);
+  background:
+    repeating-linear-gradient(to right, var(--c-ink-4) 0 1px, transparent 1px 40px) left bottom / 100% 12px no-repeat,
+    repeating-linear-gradient(to right, var(--c-line-strong) 0 1px, transparent 1px 8px) left bottom / 100% 6px no-repeat;
+}
+.ruler::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  height: 3px;
+  background: var(--c-accent);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.stat:hover .ruler::after { transform: scaleX(1); }
+
+/* zvezdice */
+.stars {
+  display: flex;
+  gap: 6px;
+  margin-top: 18px;
+}
+.star {
+  width: 20px;
+  height: 20px;
+  transition: transform 0.25s ease-out;
+}
+.starOutline { fill: none; stroke: var(--c-accent); stroke-width: 1.2; stroke-linejoin: round; }
+.starFill { fill: var(--c-accent); }
+
+/* talas: zvezdice poskoče jedna za drugom */
+.stat:hover .star { transform: translateY(-3px); }
+.stat:hover .star:nth-child(2) { transition-delay: 0.04s; }
+.stat:hover .star:nth-child(3) { transition-delay: 0.08s; }
+.stat:hover .star:nth-child(4) { transition-delay: 0.12s; }
+.stat:hover .star:nth-child(5) { transition-delay: 0.16s; }
+
+/* ================= recenzije ================= */
+.reviews {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+}
+
+.review {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: 4px 0 4px 20px;
+  border-left: 2px solid var(--c-accent);
+  transition: border-left-width 0.2s ease-out, padding-left 0.2s ease-out;
+}
+.review:hover { border-left-width: 5px; padding-left: 26px; }
+
+/* veliki navodnik kao dekoracija u pozadini */
+.quoteMark {
+  position: absolute;
+  top: -34px;
+  right: 6px;
+  font: 800 120px/1 var(--f-display);
+  color: var(--c-bg-alt);
+  pointer-events: none;
+  transition: color 0.25s, transform 0.3s ease-out;
+}
+.review:hover .quoteMark {
+  color: rgb(255 106 44 / 0.18);
+  transform: translateY(-4px);
+}
+
+.quote {
+  position: relative;
+  margin: 0 0 12px;
+  font: 400 15px/1.65 var(--f-body);
+  color: var(--c-ink-2);
+}
+
+.author {
+  position: relative;
+  margin-top: auto;
+  font: 600 12px var(--f-body);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--c-ink-4);
+}
+
+.short { display: none; }
+
+/* ============ responsive ============ */
+
+@media (max-width: 900px) {
+  .value { font-size: 40px; }
+  .stat { padding: 22px 18px 18px; }
+  .reviews { grid-template-columns: 1fr; gap: 22px; }
+}
+
+/* Mobilni — po dizajnu: kompaktne brojke u 3 kolone, recenzije u horizontalnom skrolu */
+@media (max-width: 720px) {
+  .why { padding: 0 0 4px; border-bottom: none; }
+
+  .head { display: none; } /* dizajn: brojke se nastavljaju direktno ispod veleprodaje */
+
+  .stats { margin-bottom: 20px; border-left: none; border-right: none; border-top: none; }
+  .stat { padding: 16px 10px; }
+  .crosshair, .ruler, .stars { display: none; }
+  .value { font-size: 22px; letter-spacing: 0; }
+  .label { margin-top: 2px; font-size: 10px; letter-spacing: 0.12em; }
+  .long { display: none; }
+  .short { display: inline; }
+
+  /* recenzije: prevlačenje prstom levo-desno, kartica se "zaključa" na mestu */
+  .reviews {
+    display: flex;
+    gap: 16px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    padding: 0 16px 8px;
+    scroll-padding: 0 16px;
+    scrollbar-width: none;
+  }
+  .reviews::-webkit-scrollbar { display: none; }
+  .review {
+    flex: 0 0 85%;
+    scroll-snap-align: start;
+    padding-left: 16px;
+  }
+  .review:hover { border-left-width: 2px; padding-left: 16px; }
+  .quoteMark { display: none; }
+  .quote { font-size: 14px; line-height: 1.6; margin-bottom: 8px; }
+  .author { font-size: 11px; }
+}

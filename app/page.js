@@ -5,6 +5,7 @@ import Services from "@/components/Services";
 import Process from "@/components/Process";
 import Gallery from "@/components/Gallery";
 import Wholesale from "@/components/Wholesale";
+import WhyUs from "@/components/WhyUs";
 import styles from "./page.module.css";
 
 export default function Home() {
@@ -18,7 +19,8 @@ export default function Home() {
         <Process />
         <Gallery />
         <Wholesale />
-        {/* sledeće: Zašto mi, Kontakt, Footer */}
+        <WhyUs />
+        {/* sledeće: Kontakt, Footer */}
       </main>
     </div>
   );
