@@ -1,0 +1,6 @@
+/* Klase su lokalne za ovu komponentu — ime `.header` ovde se ne sudara
+   sa `.header` iz bilo kog drugog modula. */
+
+.header {
+  /* TODO */
+}

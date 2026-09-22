@@ -1,0 +1,52 @@
+/* ============================================================
+   DESIGN TOKENS — izvučeni iz dizajna (design/landing-light.dc.html)
+   Sve boje/razmaci menjaš SAMO ovde, nigde drugde ne kucaj hex.
+   ============================================================ */
+:root {
+  /* boje */
+  --c-accent:      #FF6A2C;  /* narandžasta — CTA, brojevi, akcenti */
+  --c-accent-soft: #ff8a58;  /* hover */
+  --c-bg:          #FFFFFF;  /* pozadina kartica/sekcija */
+  --c-bg-alt:      #F3F3F1;  /* naizmenične sekcije */
+  --c-bg-page:     #EDEDEA;  /* pozadina cele strane */
+  --c-line:        #E4E4E0;  /* tanke linije mreže */
+  --c-line-strong: #D7D7D2;
+  --c-ink:         #000000;  /* naslovi */
+  --c-ink-2:       #2B2B28;  /* citati */
+  --c-ink-3:       #4B4B46;  /* body tekst */
+  --c-ink-4:       #6E6E68;  /* labele, meta */
+
+  /* tipografija */
+  --f-display: var(--font-archivo), system-ui, sans-serif;
+  --f-body:    var(--font-plex), system-ui, sans-serif;
+
+  /* razmaci */
+  --s-1: 8px;
+  --s-2: 14px;
+  --s-3: 22px;
+  --s-4: 34px;
+  --s-5: 56px;
+  --s-6: 64px;
+
+  --page-max: 1240px;
+}
+
+/* ---- reset ---- */
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+
+body {
+  background: var(--c-bg-page);
+  color: var(--c-ink);
+  font-family: var(--f-body);
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4 { margin: 0; font-family: var(--f-display); text-transform: uppercase; }
+p { margin: 0; }
+a { color: var(--c-accent); text-decoration: none; }
+a:hover { color: var(--c-accent-soft); }
+button { font: inherit; border: none; background: none; cursor: pointer; }
+img { max-width: 100%; display: block; }
