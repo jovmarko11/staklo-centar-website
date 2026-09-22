@@ -1,0 +1,66 @@
+.process {
+  padding: 64px 40px;
+  background: var(--c-bg-alt);
+  border-bottom: 1px solid var(--c-line);
+}
+
+.title {
+  margin-bottom: 34px;
+  font: 800 44px/1.02 var(--f-display);
+}
+
+/* Trik za tanke linije između kartica: pozadina grida je boja linije,
+   gap je 1px, a kartice su bele — kroz razmak "proviri" linija. */
+.grid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  background: var(--c-line-strong);
+}
+
+.step {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 28px 24px;
+  background: var(--c-bg);
+}
+
+.num {
+  font: 800 42px/1 var(--f-display);
+  color: var(--c-accent);
+}
+
+.name { font: 700 19px var(--f-display); }
+
+.desc {
+  font: 400 14px/1.6 var(--f-body);
+  color: var(--c-ink-3);
+}
+
+/* ============ responsive ============ */
+
+@media (max-width: 900px) {
+  .grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* Mobilni — po dizajnu: bela pozadina, 2×2, samo broj + naziv */
+@media (max-width: 720px) {
+  .process {
+    padding: 26px 16px 0;
+    background: var(--c-bg);
+    border-bottom: none;
+  }
+  .title { margin-bottom: 14px; font-size: 26px; line-height: 1.2; }
+
+  .step { gap: 8px; padding: 16px; }
+  .num { font-size: 28px; }
+  .name {
+    font: 600 13px/1.35 var(--f-body);
+    text-transform: none;
+  }
+  .desc { display: none; }
+}
