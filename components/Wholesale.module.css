@@ -1,0 +1,279 @@
+.wholesale {
+  display: grid;
+  grid-template-columns: 1.05fr 0.95fr;
+  border-bottom: 1px solid var(--c-line);
+}
+
+/* ================= LEVO: narandžasti panel ================= */
+.panel {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 22px;
+  padding: 56px 40px 0;
+  background: var(--c-accent);
+  color: var(--c-ink);
+}
+
+/* tehnički crtež: veliki vodeni žig desno dole, može da ide ispod teksta
+   (tekst je position: relative, pa se crta iznad crteža) */
+.blueprint {
+  position: absolute;
+  right: 24px;
+  bottom: 104px;                 /* iznad trake sa činjenicama */
+  width: 290px;
+  color: var(--c-ink);
+  opacity: 0.2;
+  pointer-events: none;
+}
+.blueprint :global(.bp-text) {
+  font: 600 10px var(--f-body);
+  letter-spacing: 0.08em;
+  fill: currentColor;
+}
+
+.eyebrow {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font: 700 11px var(--f-body);
+  letter-spacing: 0.2em;
+}
+
+.dash {
+  width: 26px;
+  height: 2px;
+  background: var(--c-ink);
+}
+
+.title {
+  position: relative;
+  max-width: 460px;
+  font: 800 clamp(34px, 4.2vw, 50px) / 1 var(--f-display);
+  letter-spacing: -0.015em;
+}
+
+.lead {
+  position: relative;
+  max-width: 420px;
+  font: 500 16px/1.6 var(--f-body);
+}
+
+/* ---- CTA + telefon ---- */
+.actions {
+  position: relative;
+  display: flex;
+  align-items: stretch;
+  flex-wrap: wrap;
+  gap: 0;
+  margin-top: 6px;
+  border: 1px solid var(--c-ink);
+  background: var(--c-accent);   /* crtež se ne vidi kroz dugmad */
+}
+
+.cta {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 18px 28px;
+  background: var(--c-ink);
+  color: var(--c-bg);
+  font: 800 13px var(--f-display);
+  letter-spacing: 0.1em;
+  white-space: nowrap;
+}
+.cta:hover { color: var(--c-bg); }
+
+.arrow {
+  display: inline-block;
+  transition: transform 0.2s ease-out;
+}
+.cta:hover .arrow { transform: translateX(4px); }
+
+.callBox {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 8px 22px;
+}
+
+.callLabel {
+  font: 600 10px var(--f-body);
+  letter-spacing: 0.16em;
+}
+
+.callPhone {
+  font: 800 17px var(--f-display);
+  color: var(--c-ink);
+  white-space: nowrap;
+}
+a.callPhone:hover { color: var(--c-bg); }
+
+/* ---- 3 činjenice na dnu panela, odvojene crnim linijama ---- */
+.facts {
+  position: relative;
+  align-self: stretch;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  margin: auto -40px 0;          /* auto → traka je uvek zalepljena za dno panela */
+  border-top: 1px solid var(--c-ink);
+}
+
+.fact {
+  padding: 20px 24px 22px;
+  border-right: 1px solid var(--c-ink);
+}
+.fact:first-child { padding-left: 40px; }
+.fact:last-child { border-right: none; }
+
+.factValue {
+  font: 800 22px/1.1 var(--f-display);
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
+}
+
+.factLabel {
+  margin: 4px 0 0;
+  font: 500 12px var(--f-body);
+  letter-spacing: 0.06em;
+}
+
+/* ================= DESNO: pogodnosti ================= */
+.side {
+  display: flex;
+  flex-direction: column;
+  padding: 56px 40px;
+  background: var(--c-bg-alt);
+}
+
+.sideLabel {
+  margin-bottom: 6px;
+  font: 600 11px var(--f-body);
+  letter-spacing: 0.2em;
+  color: var(--c-ink-4);
+}
+
+.list {
+  list-style: none;
+  margin: 0 0 34px;
+  padding: 0;
+}
+
+.item {
+  position: relative;
+  display: grid;
+  grid-template-columns: 34px 1fr;
+  gap: 12px;
+  padding: 18px 0 18px 0;
+  border-bottom: 1px solid var(--c-line-strong);
+  transition: padding-left 0.2s ease-out;
+}
+
+/* narandžasta crta sa leve strane na hover */
+.item::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: -1px;
+  bottom: -1px;
+  width: 3px;
+  background: var(--c-accent);
+  transform: scaleY(0);
+  transform-origin: top;
+  transition: transform 0.2s ease-out;
+}
+.item:hover { padding-left: 14px; }
+.item:hover::before { transform: scaleY(1); }
+
+.num {
+  font: 800 13px/1.5 var(--f-display);
+  color: var(--c-accent);
+}
+
+.itemTitle {
+  font: 700 16px/1.3 var(--f-display);
+}
+
+.itemDesc {
+  margin-top: 4px;
+  font: 400 14px/1.55 var(--f-body);
+  color: var(--c-ink-3);
+}
+
+/* asortiman ide na dno kolone, u ravni sa činjenicama levo */
+.rangeLabel { margin-top: auto; }
+
+/* asortiman: mreža pločica sa 1px linijama (isti trik kao Kako radimo) */
+.range {
+  list-style: none;
+  margin: 8px 0 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: var(--c-line-strong);
+  border: 1px solid var(--c-line-strong);
+}
+
+.rangeItem {
+  padding: 12px 14px;
+  background: var(--c-bg);
+  font: 600 13px var(--f-body);
+}
+
+.short { display: none; }
+
+/* ============ responsive ============ */
+
+@media (max-width: 1000px) {
+  .wholesale { grid-template-columns: 1fr; }
+  .panel { padding-top: 48px; }
+  /* panel je sad širok → crtež ide gore desno, pored teksta */
+  .blueprint {
+    position: absolute;
+    top: 40px;
+    right: 24px;
+    bottom: auto;
+    width: clamp(220px, 36vw, 360px);
+  }
+  .side { padding: 48px 40px; }
+}
+
+/* Mobilni */
+@media (max-width: 720px) {
+  .wholesale { margin-top: 26px; border-bottom: none; }
+
+  .panel { gap: 10px; padding: 24px 16px 0; }
+  .blueprint { display: none; }
+
+  .eyebrow { font-size: 10px; }
+  .dash { display: none; }
+  .title { font-size: 24px; line-height: 1.05; letter-spacing: 0; }
+  .long { display: none; }
+  .short { display: inline; }
+  .lead { font-size: 14px; line-height: 1.55; }
+
+  .actions { flex-direction: column; width: 100%; margin-top: 4px; border: none; }
+  .cta { justify-content: center; height: 46px; padding: 0; }
+  .callBox { display: none; } /* telefon je u headeru i donjoj traci */
+
+  .facts { margin: 18px -16px 0; }
+  .fact { padding: 14px 10px; }
+  .fact:first-child { padding-left: 16px; }
+  .factValue { font-size: 15px; }
+  .factLabel { font-size: 10px; letter-spacing: 0.04em; }
+
+  .side { padding: 22px 16px 4px; }
+  .list { margin-bottom: 22px; }
+  .item { padding: 14px 0; grid-template-columns: 28px 1fr; }
+  .item:hover { padding-left: 0; }
+  .item:hover::before { transform: scaleY(0); }
+  .itemTitle { font-size: 14px; }
+  .itemDesc { font-size: 13px; }
+
+  .range { grid-template-columns: repeat(2, 1fr); margin-bottom: 18px; }
+  .rangeItem { padding: 10px 12px; font-size: 12px; }
+}
