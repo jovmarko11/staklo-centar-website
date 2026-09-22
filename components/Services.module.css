@@ -1,0 +1,114 @@
+.services {
+  padding: 64px 40px;
+  border-bottom: 1px solid var(--c-line);
+}
+
+/* naslov levo, kratak opis desno, poravnati po dnu */
+.head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 30px;
+  margin-bottom: 34px;
+}
+
+.title {
+  font: 800 44px/1.02 var(--f-display);
+  letter-spacing: -0.01em;
+}
+
+.intro {
+  max-width: 380px;
+  font: 400 15px/1.6 var(--f-body);
+  color: var(--c-ink-4);
+}
+
+/* ---- lista usluga ---- */
+.list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid var(--c-line);
+}
+
+/* svaki red: broj | naziv | opis | link */
+.row {
+  display: grid;
+  grid-template-columns: 52px 300px 1fr 150px;
+  grid-template-areas: "num name desc link";
+  align-items: center;
+  gap: 24px;
+  padding: 24px 0;
+  border-bottom: 1px solid var(--c-line);
+  transition: background-color 0.15s;
+}
+/* sivi red iz dizajna (04) = hover stanje */
+.row:hover { background: var(--c-bg-alt); }
+
+.num {
+  grid-area: num;
+  font: 800 15px var(--f-display);
+  color: var(--c-accent);
+}
+
+.name {
+  grid-area: name;
+  font: 700 22px var(--f-display);
+}
+
+.desc {
+  grid-area: desc;
+  font: 400 15px/1.6 var(--f-body);
+  color: var(--c-ink-3);
+}
+
+.link {
+  grid-area: link;
+  justify-self: end;
+  font: 600 12px var(--f-body);
+  letter-spacing: 0.12em;
+  white-space: nowrap;
+}
+
+.short { display: none; }
+
+/* ============ responsive ============ */
+
+/* Tablet: naziv i opis jedan ispod drugog u srednjoj koloni */
+@media (max-width: 1000px) {
+  .row {
+    grid-template-columns: 40px 1fr auto;
+    grid-template-areas:
+      "num name link"
+      "num desc link";
+    row-gap: 6px;
+    align-items: start;
+  }
+  .link { align-self: center; }
+}
+
+@media (max-width: 720px) {
+  .services { padding: 26px 16px 0; border-bottom: none; }
+
+  .head { display: block; margin-bottom: 14px; }
+  .title { font-size: 26px; line-height: 1.2; letter-spacing: 0; }
+  .intro { display: none; }
+
+  .row {
+    grid-template-columns: auto 1fr;
+    grid-template-areas:
+      "num name"
+      "num desc";
+    column-gap: 14px;
+    row-gap: 4px;
+    padding: 16px 0;
+  }
+  .row:hover { background: none; }
+  .num { font-size: 13px; line-height: 1.4; }
+  .name { font-size: 16px; }
+  .desc { font-size: 14px; line-height: 1.5; color: var(--c-ink-4); }
+  .link { display: none; }
+
+  .long { display: none; }
+  .short { display: inline; }
+}
