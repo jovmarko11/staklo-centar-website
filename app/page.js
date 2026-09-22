@@ -1,10 +1,14 @@
-// Ovo je početna strana ( / ). Ovde ti sastavljaš sekcije.
-// Za sada je prazna — u lekciji 2 dodajemo <Header />.
+import Header from "@/components/Header";
+import styles from "./page.module.css";
 
 export default function Home() {
   return (
-    <main>
-      <h1>Radi.</h1>
-    </main>
+    <div className={styles.page}>
+      <Header />
+      <main>
+        {/* sledeće sekcije: Hero, Prednosti, Usluge, Kako radimo, Galerija,
+            Veleprodaja, Zašto mi, Kontakt, Footer */}
+      </main>
+    </div>
   );
 }

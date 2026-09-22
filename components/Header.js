@@ -1,18 +1,36 @@
+import { site, nav } from "@/lib/site";
+import Phone from "./Phone";
 import styles from "./Header.module.css";
-
-// ZADATAK (lekcija 2): popuni ovu komponentu po dizajnu.
-// Struktura je skicirana komentarima — JSX i CSS pišeš ti.
 
 export default function Header() {
   return (
     <header className={styles.header}>
+      {/* BLOK 1 — brend */}
+      <a href="#" className={styles.brand} aria-label="Staklo Centar — početak strane">
+        <span className={styles.logo} aria-hidden="true">S</span>
+        <span className={styles.brandText}>
+          <span className={styles.brandName}>STAKLO CENTAR</span>
+          <span className={styles.brandSub}>ČAČAK / AUTO-STAKLA</span>
+        </span>
+      </a>
 
-      {/* BLOK 1 — brend: narandžasti kvadrat "S" + dva reda teksta */}
+      {/* BLOK 2 — navigacija (sakriva se ispod 1100px) */}
+      <nav className={styles.nav} aria-label="Glavni meni">
+        {nav.map((item) => (
+          <a key={item.href} href={item.href} className={styles.navLink}>
+            {item.label}
+          </a>
+        ))}
+      </nav>
 
-      {/* BLOK 2 — nav: 5 linkova (USLUGE, KAKO RADIMO, RADOVI, ZA SERVISE, KONTAKT) */}
-
-      {/* BLOK 3 — desno: dežurni telefon + narandžasto dugme ZATRAŽI PROCENU */}
-
+      {/* BLOK 3 — telefon + CTA */}
+      <div className={styles.actions}>
+        <div className={styles.phoneBox}>
+          <span className={styles.phoneLabel}>DEŽURNI TELEFON</span>
+          <Phone phone={site.phones.landline} className={styles.phone} />
+        </div>
+        <a href="#kontakt" className={styles.cta}>ZATRAŽI PROCENU</a>
+      </div>
     </header>
   );
 }

@@ -1,0 +1,17 @@
+/* Ceo sajt je jedna bela "kartica" širine do 1240px na sivoj pozadini,
+   uokvirena tankom linijom — isto kao u dizajnu. */
+.page {
+  max-width: var(--page-max);
+  margin: 44px auto;
+  background: var(--c-bg);
+  border: 1px solid var(--c-line);
+  overflow: hidden;
+}
+
+/* Kad ekran postane uži od kartice + margina, kartica ide od ivice do ivice. */
+@media (max-width: 1328px) {
+  .page { margin: 0 auto; border-top: none; border-bottom: none; }
+}
+@media (max-width: 1240px) {
+  .page { border-left: none; border-right: none; }
+}

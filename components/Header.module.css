@@ -1,6 +1,124 @@
-/* Klase su lokalne za ovu komponentu — ime `.header` ovde se ne sudara
-   sa `.header` iz bilo kog drugog modula. */
-
+/* Desktop: tri bloka u redu, razdvojena tankim linijama.
+   align-items: stretch → sva tri bloka su visoka kao header,
+   pa linije i narandžasto dugme idu od vrha do dna. */
 .header {
-  /* TODO */
+  display: flex;
+  align-items: stretch;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--c-line);
+  background: var(--c-bg);
+}
+
+/* ---- BLOK 1: brend ---- */
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 18px 30px;
+  border-right: 1px solid var(--c-line);
+  color: var(--c-ink);
+}
+.brand:hover { color: var(--c-ink); }
+
+.logo {
+  width: 32px;
+  height: 32px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--c-accent);
+  color: var(--c-ink);
+  font: 800 15px var(--f-display);
+}
+
+.brandText { display: flex; flex-direction: column; }
+
+.brandName {
+  font: 800 16px/1 var(--f-display);
+  letter-spacing: 0.02em;
+}
+
+.brandSub {
+  font: 500 10px/1.5 var(--f-body);
+  letter-spacing: 0.2em;
+  white-space: nowrap;
+  color: var(--c-ink-4);
+}
+
+/* ---- BLOK 2: nav ---- */
+.nav {
+  display: flex;
+  align-items: center;
+}
+
+.navLink {
+  padding: 0 22px;
+  font: 600 12px var(--f-body);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: var(--c-ink-3);
+}
+.navLink:hover { color: var(--c-accent); }
+
+/* ---- BLOK 3: telefon + CTA ---- */
+.actions {
+  display: flex;
+  align-items: stretch;
+}
+
+.phoneBox {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0 26px;
+  border-left: 1px solid var(--c-line);
+}
+
+.phoneLabel {
+  font: 500 10px var(--f-body);
+  letter-spacing: 0.16em;
+  white-space: nowrap;
+  color: var(--c-ink-4);
+}
+
+.phone {
+  font: 700 17px var(--f-display);
+  color: var(--c-ink);
+}
+a.phone:hover { color: var(--c-accent); }
+
+.cta {
+  display: flex;
+  align-items: center;
+  padding: 0 30px;
+  background: var(--c-accent);
+  color: var(--c-ink);
+  font: 800 13px var(--f-display);
+  letter-spacing: 0.08em;
+  white-space: nowrap;
+}
+.cta:hover { background: var(--c-accent-soft); color: var(--c-ink); }
+
+/* ============ responsive ============ */
+
+/* Tablet: nav više ne staje → sakrij ga (meni po stranama dolazi kasnije). */
+@media (max-width: 1100px) {
+  .nav { display: none; }
+}
+
+/* Mobilni (po dizajnu): samo "STAKLO CENTAR" levo + narandžasti broj desno. */
+@media (max-width: 720px) {
+  .header {
+    align-items: center;
+    padding: 14px 16px;
+  }
+  .brand { padding: 0; border-right: none; }
+  .logo, .brandSub { display: none; }
+  .brandName { font-size: 14px; }
+
+  .phoneBox { padding: 0; border-left: none; }
+  .phoneLabel, .cta { display: none; }
+  .phone { font-size: 13px; color: var(--c-accent); }
 }
