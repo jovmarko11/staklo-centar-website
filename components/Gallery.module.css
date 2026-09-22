@@ -1,0 +1,97 @@
+.gallery {
+  padding: 64px 40px;
+  border-bottom: 1px solid var(--c-line);
+}
+
+.head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 20px;
+  margin-bottom: 26px;
+}
+
+.title { font: 800 44px/1.02 var(--f-display); }
+
+.more {
+  font: 600 12px var(--f-body);
+  letter-spacing: 0.14em;
+  color: var(--c-accent);
+  white-space: nowrap;
+}
+
+/* ---- kartice ---- */
+.grid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+}
+
+.card { border: 1px solid var(--c-line); }
+
+/* PRE | POSLE jedno pored drugog */
+.pair {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  height: 180px;
+}
+
+.photo {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  padding: 10px;
+  overflow: hidden;
+}
+.before { background: var(--c-ph-dark); }
+.after  { background: var(--c-ph-light); border-left: 1px solid var(--c-bg); }
+
+/* kad stigne slika, popunjava polje, a oznaka ostaje preko nje */
+.img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.tag {
+  position: relative; /* iznad slike */
+  font: 700 10px var(--f-display);
+  letter-spacing: 0.16em;
+  color: var(--c-ink-4);
+}
+.after .tag { color: var(--c-accent); }
+
+.caption {
+  padding: 12px 14px;
+  border-top: 1px solid var(--c-line);
+  font: 600 13px var(--f-body);
+}
+
+.short { display: none; }
+
+/* ============ responsive ============ */
+
+@media (max-width: 900px) {
+  .grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* Mobilni — po dizajnu: naslov "Radovi", mreža 2×2 malih pločica */
+@media (max-width: 720px) {
+  .gallery { padding: 26px 16px 0; border-bottom: none; }
+
+  .head { margin-bottom: 14px; }
+  .title { font-size: 26px; line-height: 1.2; }
+  .long, .more { display: none; }
+  .short { display: inline; }
+
+  .grid { gap: 8px; }
+  .card { border: none; }
+  .card:nth-child(n + 5) { display: none; } /* 4 pločice kao u dizajnu */
+  .pair { height: 92px; }
+  .tag, .caption { display: none; }
+}

@@ -16,6 +16,10 @@
   --c-ink-3:       #4B4B46;  /* body tekst */
   --c-ink-4:       #6E6E68;  /* labele, meta */
 
+  /* placeholderi za slike/mapu dok ne stignu prave */
+  --c-ph-dark:     #E8E8E4;
+  --c-ph-light:    #F6F6F3;
+
   /* tipografija */
   --f-display: var(--font-archivo), system-ui, sans-serif;
   --f-body:    var(--font-plex), system-ui, sans-serif;
