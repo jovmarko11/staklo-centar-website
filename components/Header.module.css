@@ -20,6 +20,12 @@
 }
 .brand:hover { color: var(--c-ink); }
 
+/* na hover se oko logoa "odmakne" tanak okvir — kao oznaka za poravnanje */
+.brand:hover .logo {
+  outline-offset: 5px;
+  outline-color: var(--c-accent);
+}
+
 .logo {
   width: 32px;
   height: 32px;
@@ -30,6 +36,9 @@
   background: var(--c-accent);
   color: var(--c-ink);
   font: 800 15px var(--f-display);
+  outline: 1px solid transparent;
+  outline-offset: 0;
+  transition: outline-offset 0.3s ease-out, outline-color 0.3s;
 }
 
 .brandText { display: flex; flex-direction: column; }
@@ -60,7 +69,29 @@
   white-space: nowrap;
   color: var(--c-ink-3);
 }
-.navLink:hover { color: var(--c-accent); }
+.navLink {
+  position: relative;
+  align-self: stretch;
+  display: flex;
+  align-items: center;
+  transition: color 0.2s;
+}
+.navLink:hover { color: var(--c-ink); }
+
+/* hover: ispod linka se "iscrta" kota |____| od sredine ka krajevima */
+.navLink::after {
+  content: "";
+  position: absolute;
+  left: 22px;
+  right: 22px;
+  bottom: 22px;
+  height: 5px;
+  border: 1px solid var(--c-accent);
+  border-top: none;
+  transform: scaleX(0);
+  transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.navLink:hover::after { transform: scaleX(1); }
 
 /* ---- BLOK 3: telefon + CTA ---- */
 .actions {
@@ -83,6 +114,31 @@
   color: var(--c-ink-4);
 }
 
+.phoneLabel {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+/* mali narandžasti kvadrat koji "diše" — dežurni telefon je aktivan */
+.live {
+  position: relative;
+  width: 6px;
+  height: 6px;
+  background: var(--c-accent);
+}
+.live::after {
+  content: "";
+  position: absolute;
+  inset: -3px;
+  border: 1px solid var(--c-accent);
+  animation: livePulse 2s ease-out infinite;
+}
+@keyframes livePulse {
+  from { transform: scale(0.5); opacity: 1; }
+  to   { transform: scale(1.8); opacity: 0; }
+}
+
 .phone {
   font: 700 17px var(--f-display);
   color: var(--c-ink);
@@ -90,8 +146,11 @@
 a.phone:hover { color: var(--c-accent); }
 
 .cta {
+  position: relative;
+  overflow: hidden;
   display: flex;
   align-items: center;
+  gap: 0;
   padding: 0 30px;
   background: var(--c-accent);
   color: var(--c-ink);
@@ -99,7 +158,43 @@ a.phone:hover { color: var(--c-accent); }
   letter-spacing: 0.08em;
   white-space: nowrap;
 }
-.cta:hover { background: var(--c-accent-soft); color: var(--c-ink); }
+.cta:hover { color: var(--c-ink); }
+
+/* hover: preko dugmeta klizi šrafura (kose linije kao presek na crtežu) */
+.cta::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    -45deg,
+    rgb(0 0 0 / 0.13) 0 1px,
+    transparent 1px 7px
+  );
+  background-size: 200% 100%;
+  opacity: 0;
+  transition: opacity 0.25s;
+}
+.cta:hover::before {
+  opacity: 1;
+  animation: hatchSlide 1.2s linear infinite;
+}
+@keyframes hatchSlide {
+  to { background-position: -19.8px 0; }   /* 7px·√2·2 → bešavna petlja */
+}
+
+.ctaText, .ctaArrow { position: relative; }
+.ctaArrow {
+  display: inline-block;
+  width: 0;
+  opacity: 0;
+  overflow: hidden;
+  transition: width 0.25s ease-out, opacity 0.25s, margin-left 0.25s;
+}
+.cta:hover .ctaArrow { width: 14px; margin-left: 10px; opacity: 1; }
+
+@media (prefers-reduced-motion: reduce) {
+  .live::after, .cta:hover::before { animation: none; }
+}
 
 /* ============ responsive ============ */
 

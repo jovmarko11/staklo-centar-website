@@ -1,3 +1,4 @@
+import DimensionLine from "./ui/DimensionLine";
 import styles from "./WhyUs.module.css";
 
 // PLACEHOLDER: brojke i recenzije su iz dizajna i NISU prave.
@@ -63,9 +64,7 @@ export default function WhyUs() {
       <div className={styles.head}>
         <h2 className={styles.title}>Zašto mi</h2>
         {/* kotna linija kao na nacrtu */}
-        <div className={styles.dimension} aria-hidden="true">
-          <span className={styles.dimensionLabel}>BROJKE / UTISCI KUPACA</span>
-        </div>
+        <DimensionLine label="BROJKE / UTISCI KUPACA" />
       </div>
 
       {/* ---- brojke ---- */}

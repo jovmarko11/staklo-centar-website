@@ -1,0 +1,62 @@
+.bar { display: none; }
+
+@media (max-width: 720px) {
+  .bar {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 50;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding-bottom: env(safe-area-inset-bottom); /* iPhone "home" linija */
+    background: var(--c-bg-alt);
+    border-top: 1px solid var(--c-line-strong);
+  }
+
+  /* lenjir duž gornje ivice — isti motiv kao na ostatku sajta */
+  .bar::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    height: 5px;
+    background:
+      repeating-linear-gradient(to right, var(--c-ink-4) 0 1px, transparent 1px 40px) left top / 100% 5px no-repeat,
+      repeating-linear-gradient(to right, var(--c-line-strong) 0 1px, transparent 1px 8px) left top / 100% 3px no-repeat;
+    pointer-events: none;
+  }
+
+  .call,
+  .cta {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    height: 52px;
+    font: 800 13px var(--f-display);
+    letter-spacing: 0.1em;
+    color: var(--c-ink);
+    -webkit-tap-highlight-color: transparent;
+    transition: background-color 0.15s;
+  }
+
+  .call { border-right: 1px solid var(--c-line-strong); }
+  .call:hover, .call:active { color: var(--c-ink); background: var(--c-line); }
+
+  .cta { background: var(--c-accent); }
+  .cta:hover, .cta:active { color: var(--c-ink); background: var(--c-accent-soft); }
+
+  .icon {
+    width: 16px;
+    height: 16px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.6;
+    stroke-linejoin: round;
+  }
+
+  .arrow { transition: transform 0.2s ease-out; }
+  .cta:active .arrow { transform: translateX(4px); }
+}

@@ -16,44 +16,6 @@
   white-space: nowrap;
 }
 
-/* linija sa graničnicima na krajevima i strelicama — kao kota na crtežu */
-.dimension {
-  position: relative;
-  flex: 1;
-  height: 14px;
-  border-left: 1px solid var(--c-ink-4);
-  border-right: 1px solid var(--c-ink-4);
-}
-.dimension::before {                         /* sama linija */
-  content: "";
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 50%;
-  border-top: 1px solid var(--c-line-strong);
-}
-.dimension::after {                          /* strelice (dva mala trougla) */
-  content: "";
-  position: absolute;
-  inset: 0;
-  background:
-    conic-gradient(from 60deg at 0 50%, var(--c-ink-4) 60deg, transparent 0) left center / 7px 7px no-repeat,
-    conic-gradient(from 240deg at 100% 50%, var(--c-ink-4) 60deg, transparent 0) right center / 7px 7px no-repeat;
-}
-
-.dimensionLabel {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  padding: 0 12px;
-  background: var(--c-bg);
-  font: 600 10px var(--f-body);
-  letter-spacing: 0.2em;
-  color: var(--c-ink-4);
-  white-space: nowrap;
-}
-
 /* ================= brojke ================= */
 .stats {
   list-style: none;

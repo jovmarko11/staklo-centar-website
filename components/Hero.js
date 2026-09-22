@@ -1,5 +1,6 @@
 import { site } from "@/lib/site";
 import Phone from "./Phone";
+import HeroDrawing from "./HeroDrawing";
 import styles from "./Hero.module.css";
 
 // Neki tekstovi su u dizajnu kraći na mobilnom — renderujemo obe verzije,
@@ -31,8 +32,13 @@ export default function Hero() {
         </p>
 
         <div className={styles.buttons}>
-          <a href="#kontakt" className={styles.btnPrimary}>ZATRAŽI PROCENU</a>
-          <a href="#radovi" className={styles.btnSecondary}>POGLEDAJ RADOVE</a>
+          <a href="#kontakt" className={styles.btnPrimary}>
+            <span className={styles.btnText}>ZATRAŽI PROCENU</span>
+          </a>
+          <a href="#radovi" className={styles.btnSecondary}>
+            <span className={styles.btnText}>POGLEDAJ RADOVE</span>
+            <span className={styles.btnArrow} aria-hidden="true">↓</span>
+          </a>
         </div>
 
         <div className={styles.callRow}>
@@ -41,15 +47,34 @@ export default function Hero() {
         </div>
       </div>
 
-      {/* DESNO — fotografija (placeholder dok fotograf ne pošalje) */}
+      {/* DESNO — tehnički list sa crtežom vozila (fotografija dolazi kasnije) */}
       <div className={styles.media}>
-        <span className={styles.mediaLabel}>
-          <span className={styles.long}>FOTOGRAFIJA<br />RADIONICA / UGRADNJA</span>
-          <span className={styles.short}>FOTOGRAFIJA — RADIONICA</span>
-        </span>
+        <div className={styles.sheetHead} aria-hidden="true">
+          <span>SL. 01 — BOČNI IZGLED</span>
+          <span>RAZMERA 1:20 · MM</span>
+        </div>
+
+        {/* legenda — kao na pravom listu crteža */}
+        <ul className={styles.legend} aria-hidden="true">
+          <li><span className={styles.swGlass} />STAKLO</li>
+          <li><span className={styles.swLine} />KONTURA</li>
+          <li><span className={styles.swDim} />KOTE (MM)</li>
+        </ul>
+
+        <div className={styles.drawingWrap}>
+          <HeroDrawing />
+        </div>
+
         <div className={styles.badge}>
           <div className={styles.badgeValue}>60–90</div>
           <div className={styles.badgeLabel}>MINUTA ZAMENA</div>
+          {/* skala 0–120 min sa istaknutim opsegom 60–90 */}
+          <div className={styles.badgeScale} aria-hidden="true">
+            <span className={styles.badgeRange} />
+          </div>
+          <div className={styles.badgeTicks} aria-hidden="true">
+            <span>0</span><span>60</span><span>90</span><span>120</span>
+          </div>
         </div>
       </div>
     </section>

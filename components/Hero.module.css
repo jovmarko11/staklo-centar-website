@@ -4,7 +4,7 @@
   border-bottom: 1px solid var(--c-line);
 }
 
-/* ---- levo ---- */
+/* ================= LEVO: tekst ================= */
 .content {
   display: flex;
   flex-direction: column;
@@ -12,6 +12,20 @@
   gap: 26px;
   padding: 64px 40px 56px;
   border-right: 1px solid var(--c-line);
+}
+
+/* ulazna animacija: elementi se redom podignu i pojave */
+.content > * {
+  animation: rise 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+.content > :nth-child(1) { animation-delay: 0.05s; }
+.content > :nth-child(2) { animation-delay: 0.15s; }
+.content > :nth-child(3) { animation-delay: 0.3s; }
+.content > :nth-child(4) { animation-delay: 0.4s; }
+.content > :nth-child(5) { animation-delay: 0.5s; }
+@keyframes rise {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: none; }
 }
 
 .eyebrow {
@@ -27,10 +41,12 @@
   width: 26px;
   height: 2px;
   background: var(--c-accent);
+  transform-origin: left;
+  animation: grow 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.3s both;
 }
+@keyframes grow { from { transform: scaleX(0); } }
 
 .title {
-  /* 76px na punoj širini, skuplja se na užim ekranima */
   font: 800 clamp(40px, 6.2vw, 76px) / 0.94 var(--f-display);
   letter-spacing: -0.02em;
   text-wrap: balance;
@@ -44,7 +60,7 @@
   color: var(--c-ink-3);
 }
 
-/* dva dugmeta spojena u jedan uokvireni blok */
+/* ---- dugmad ---- */
 .buttons {
   display: flex;
   border: 1px solid var(--c-accent);
@@ -52,6 +68,8 @@
 
 .btnPrimary,
 .btnSecondary {
+  position: relative;
+  overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -60,20 +78,63 @@
   letter-spacing: 0.08em;
   white-space: nowrap;
 }
+.btnText, .btnArrow { position: relative; }
 
 .btnPrimary {
   background: var(--c-accent);
   color: var(--c-ink);
 }
-.btnPrimary:hover { background: var(--c-accent-soft); color: var(--c-ink); }
+.btnPrimary:hover { color: var(--c-ink); }
 
+/* šrafura koja klizi preko dugmeta — isti potpis kao u headeru */
+.btnPrimary::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(-45deg, rgb(0 0 0 / 0.13) 0 1px, transparent 1px 7px);
+  opacity: 0;
+  transition: opacity 0.25s;
+}
+.btnPrimary:hover::before {
+  opacity: 1;
+  animation: hatchSlide 1.2s linear infinite;
+}
+@keyframes hatchSlide { to { background-position: -19.8px 0; } }
+
+/* sekundarno: narandžasta se "nalije" odozdo */
 .btnSecondary {
   padding: 18px 30px;
   border-left: 1px solid var(--c-accent);
   color: var(--c-accent);
+  transition: color 0.25s;
 }
-.btnSecondary:hover { background: var(--c-accent); color: var(--c-ink); }
+.btnSecondary::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--c-accent);
+  transform: scaleY(0);
+  transform-origin: bottom;
+  transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.btnSecondary:hover { color: var(--c-ink); }
+.btnSecondary:hover::before { transform: scaleY(1); }
 
+.btnArrow {
+  display: inline-block;
+  width: 0;
+  opacity: 0;
+  transition: width 0.25s, margin-left 0.25s, opacity 0.25s;
+}
+.btnSecondary:hover .btnArrow {
+  width: 12px;
+  margin-left: 10px;
+  opacity: 1;
+  animation: nudge 0.9s ease-in-out infinite;
+}
+@keyframes nudge { 50% { transform: translateY(3px); } }
+
+/* ---- telefon ---- */
 .callRow {
   display: flex;
   align-items: baseline;
@@ -98,35 +159,86 @@
 }
 a.callPhone:hover { color: var(--c-accent); }
 
-/* ---- desno ---- */
+/* ================= DESNO: tehnički list ================= */
 .media {
   position: relative;
   min-height: 460px;
   display: flex;
+  flex-direction: column;
+  background-color: var(--c-bg-alt);
+  /* milimetarski papir */
+  background-image:
+    linear-gradient(to right, rgb(0 0 0 / 0.055) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(0 0 0 / 0.055) 1px, transparent 1px),
+    linear-gradient(to right, rgb(0 0 0 / 0.025) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(0 0 0 / 0.025) 1px, transparent 1px);
+  background-size: 50px 50px, 50px 50px, 10px 10px, 10px 10px;
+}
+
+/* zaglavlje lista */
+.sheetHead {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 14px 20px;
+  border-bottom: 1px solid var(--c-line);
+  background: var(--c-bg-alt);
+  font: 600 10px var(--f-body);
+  letter-spacing: 0.16em;
+  color: var(--c-ink-4);
+}
+
+.drawingWrap {
+  flex: 1;
+  display: flex;
   align-items: center;
   justify-content: center;
-  background: var(--c-bg-alt);
+  padding: 24px 28px 110px;
 }
+.drawingWrap > svg { max-width: 620px; }
 
-.mediaLabel {
-  font: 500 12px/1.7 var(--f-body);
-  letter-spacing: 0.14em;
+/* ---- legenda (gore desno) ---- */
+.legend {
+  position: absolute;
+  top: 66px;
+  right: 20px;
+  list-style: none;
+  margin: 0;
+  padding: 10px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  background: var(--c-bg);
+  border: 1px solid var(--c-line);
+  font: 600 9px var(--f-body);
+  letter-spacing: 0.16em;
   color: var(--c-ink-4);
-  text-align: center;
+  animation: rise 0.6s cubic-bezier(0.22, 1, 0.36, 1) 1.8s both;
+}
+.legend li { display: flex; align-items: center; gap: 10px; }
+.swGlass { width: 14px; height: 9px; background: rgb(255 106 44 / 0.16); border: 1px solid var(--c-accent); }
+.swLine  { width: 14px; height: 0; border-top: 1.5px solid var(--c-ink); }
+.swDim   {
+  width: 14px; height: 7px;
+  border-left: 1px solid var(--c-ink-4);
+  border-right: 1px solid var(--c-ink-4);
+  background: linear-gradient(var(--c-ink-4), var(--c-ink-4)) center / 100% 1px no-repeat;
 }
 
+/* ---- bedž 60–90 sa skalom ---- */
 .badge {
   position: absolute;
   left: 0;
   bottom: 0;
-  padding: 20px 26px;
+  width: 190px;
+  padding: 18px 22px 14px;
   background: var(--c-bg);
   border-top: 1px solid var(--c-line);
   border-right: 1px solid var(--c-line);
 }
 
 .badgeValue {
-  font: 800 34px var(--f-display);
+  font: 800 34px/1.1 var(--f-display);
   letter-spacing: -0.02em;
   color: var(--c-accent);
 }
@@ -137,28 +249,56 @@ a.callPhone:hover { color: var(--c-accent); }
   color: var(--c-ink-4);
 }
 
-/* kratke verzije teksta se vide samo na mobilnom */
+/* skala 0–120 min, podela na 15 min */
+.badgeScale {
+  position: relative;
+  height: 8px;
+  margin-top: 12px;
+  border-bottom: 1px solid var(--c-ink-4);
+  background: repeating-linear-gradient(to right, var(--c-line-strong) 0 1px, transparent 1px 12.5%);
+}
+.badgeRange {
+  position: absolute;
+  left: 50%;           /* 60 / 120 */
+  width: 25%;          /* 30 / 120 */
+  top: 2px;
+  bottom: 0;
+  background: var(--c-accent);
+  transform-origin: left;
+  animation: grow 0.8s cubic-bezier(0.22, 1, 0.36, 1) 1.6s both;
+}
+.badge:hover .badgeRange { animation: grow 0.8s cubic-bezier(0.22, 1, 0.36, 1) both; }
+
+.badgeTicks {
+  position: relative;
+  height: 14px;
+  margin-top: 3px;
+  font: 500 9px var(--f-body);
+  color: var(--c-ink-4);
+}
+.badgeTicks span { position: absolute; transform: translateX(-50%); }
+.badgeTicks span:nth-child(1) { left: 0; transform: none; }
+.badgeTicks span:nth-child(2) { left: 50%; }
+.badgeTicks span:nth-child(3) { left: 75%; }
+.badgeTicks span:nth-child(4) { right: 0; transform: none; }
+
 .short { display: none; }
 
 /* ============ responsive ============ */
 
-/* Tablet: kolone jedna ispod druge */
 @media (max-width: 900px) {
   .hero { grid-template-columns: 1fr; }
   .content { border-right: none; border-bottom: 1px solid var(--c-line); }
-  .media { min-height: 360px; }
+  .media { min-height: 0; }
+  .drawingWrap { padding: 24px 40px 120px; }
+  .legend { display: none; }
 }
 
-/* Mobilni — po dizajnu */
 @media (max-width: 720px) {
   .long { display: none; }
   .short { display: inline; }
 
-  .content {
-    gap: 16px;
-    padding: 22px 16px;
-    border-bottom: none;
-  }
+  .content { gap: 16px; padding: 22px 16px; border-bottom: none; }
   .eyebrow { font-size: 10px; }
   .dash { display: none; }
   .title { font-size: 40px; line-height: 0.98; letter-spacing: 0; }
@@ -168,11 +308,16 @@ a.callPhone:hover { color: var(--c-accent); }
   .btnPrimary, .btnSecondary { height: 52px; padding: 0; letter-spacing: 0.1em; }
   .btnSecondary { border: 1px solid var(--c-accent); }
 
-  .callRow { display: none; } /* broj je već u headeru */
+  .callRow { display: none; }
 
-  /* fotografija ulazi u isti blok, ispod dugmadi */
   .hero { border-bottom: 1px solid var(--c-line); }
-  .media { min-height: 160px; margin: 0 16px 22px; }
-  .mediaLabel { font-size: 11px; }
+  .media { margin: 0 16px 22px; border: 1px solid var(--c-line); }
+  .sheetHead { padding: 8px 10px; font-size: 8px; letter-spacing: 0.12em; }
+  .drawingWrap { padding: 12px 8px 14px; }
   .badge { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .content > *, .dash, .badgeRange, .legend { animation: none; }
+  .btnPrimary:hover::before, .btnSecondary:hover .btnArrow { animation: none; }
 }

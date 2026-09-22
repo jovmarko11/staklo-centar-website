@@ -1,0 +1,75 @@
+.drawing {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+  color: var(--c-ink);
+}
+
+/* ---- linije: iscrtavanje pri učitavanju ----
+   pathLength="1" → dasharray 1 = cela dužina; offset 1 → 0 = "crtanje" */
+.line {
+  fill: none;
+  stroke: currentColor;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: draw 1.3s cubic-bezier(0.65, 0, 0.35, 1) forwards;
+  animation-delay: var(--d, 0s);
+}
+@keyframes draw { to { stroke-dashoffset: 0; } }
+
+.body    { stroke-width: 1.6; }
+.thin    { stroke-width: 1; stroke: var(--c-ink-3); }
+.axis    { stroke-width: 0.8; stroke: var(--c-ink-4); stroke-dasharray: 1; opacity: 0.7; }
+.leader  { stroke-width: 1; stroke: var(--c-ink-3); transition: stroke 0.2s; }
+.arc     { stroke-width: 1; stroke: var(--c-accent); }
+.dimLine { stroke-width: 0.8; stroke: var(--c-ink-4); }
+
+/* sve što nije linija se pojavi posle crteža */
+.glass,
+.dot,
+.arrow,
+.callout,
+.dim {
+  opacity: 0;
+  animation: fadeIn 0.6s ease-out forwards;
+  animation-delay: 1.5s;
+}
+@keyframes fadeIn { to { opacity: 1; } }
+
+.glass {
+  fill: var(--c-accent);
+  fill-opacity: 0.16;
+  stroke: var(--c-accent);
+  stroke-width: 1;
+  transition: fill-opacity 0.3s;
+}
+
+.dot { fill: var(--c-ink); transition: fill 0.2s; }
+.arrow { fill: var(--c-ink-4); }
+
+.callout {
+  font: 700 11px var(--f-display);
+  letter-spacing: 0.12em;
+  fill: var(--c-ink);
+  transition: fill 0.2s;
+}
+
+.dim {
+  font: 600 10px var(--f-body);
+  letter-spacing: 0.08em;
+  fill: var(--c-ink-4);
+}
+
+/* ---- hover: staklo + njegova oznaka ---- */
+.part { cursor: default; }
+.part:hover .glass { fill-opacity: 0.6; }
+.part:hover .leader { stroke: var(--c-accent); }
+.part:hover .dot,
+.part:hover .callout { fill: var(--c-accent); }
+
+@media (prefers-reduced-motion: reduce) {
+  .line { animation: none; stroke-dashoffset: 0; }
+  .axis { stroke-dasharray: 4 3; }
+  .glass, .dot, .arrow, .callout, .dim { animation: none; opacity: 1; }
+}

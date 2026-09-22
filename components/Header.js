@@ -26,10 +26,16 @@ export default function Header() {
       {/* BLOK 3 — telefon + CTA */}
       <div className={styles.actions}>
         <div className={styles.phoneBox}>
-          <span className={styles.phoneLabel}>DEŽURNI TELEFON</span>
+          <span className={styles.phoneLabel}>
+            <span className={styles.live} aria-hidden="true" />
+            DEŽURNI TELEFON
+          </span>
           <Phone phone={site.phones.landline} className={styles.phone} />
         </div>
-        <a href="#kontakt" className={styles.cta}>ZATRAŽI PROCENU</a>
+        <a href="#kontakt" className={styles.cta}>
+          <span className={styles.ctaText}>ZATRAŽI PROCENU</span>
+          <span className={styles.ctaArrow} aria-hidden="true">→</span>
+        </a>
       </div>
     </header>
   );

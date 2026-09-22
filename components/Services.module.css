@@ -12,13 +12,16 @@
   margin-bottom: 34px;
 }
 
+/* kota između naslova i opisa, poravnata sa osnovom naslova */
+.dimension { align-self: center; }
+
 .title {
   font: 800 44px/1.02 var(--f-display);
   letter-spacing: -0.01em;
 }
 
 .intro {
-  max-width: 380px;
+  max-width: 340px;
   font: 400 15px/1.6 var(--f-body);
   color: var(--c-ink-4);
 }
@@ -31,19 +34,60 @@
   border-top: 1px solid var(--c-line);
 }
 
-/* svaki red: broj | naziv | opis | link */
+/* svaki red: broj | ikonica | naziv | opis | link */
 .row {
+  position: relative;
   display: grid;
-  grid-template-columns: 52px 300px 1fr 150px;
-  grid-template-areas: "num name desc link";
+  grid-template-columns: 40px 52px 280px 1fr 130px;
+  grid-template-areas: "num icon name desc link";
   align-items: center;
   gap: 24px;
   padding: 24px 0;
   border-bottom: 1px solid var(--c-line);
-  transition: background-color 0.15s;
+  transition: background-color 0.25s;
 }
 /* sivi red iz dizajna (04) = hover stanje */
 .row:hover { background: var(--c-bg-alt); }
+
+/* broj, ikonica i naziv se blago pomere udesno (transform ne pomera raspored) */
+.num, .icon, .name {
+  transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1), color 0.25s;
+}
+.row:hover .num,
+.row:hover .icon,
+.row:hover .name { transform: translateX(12px); }
+
+/* narandžasta ivica sa leve strane */
+.row::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: -1px;
+  bottom: -1px;
+  width: 3px;
+  background: var(--c-accent);
+  transform: scaleY(0);
+  transform-origin: top;
+  transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.row:hover::before { transform: scaleY(1); }
+
+.icon {
+  grid-area: icon;
+  width: 44px;
+  height: 44px;
+  color: var(--c-ink-4);
+  transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1), color 0.25s;
+}
+.icon :global(*:not([stroke-dasharray])) {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 0;
+}
+.row:hover .icon { color: var(--c-accent); }
+.row:hover .icon :global(*:not([stroke-dasharray])) {
+  animation: redraw 0.8s cubic-bezier(0.65, 0, 0.35, 1);
+}
+@keyframes redraw { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
 
 .num {
   grid-area: num;
@@ -65,10 +109,17 @@
 .link {
   grid-area: link;
   justify-self: end;
+  padding-right: 4px;
   font: 600 12px var(--f-body);
   letter-spacing: 0.12em;
   white-space: nowrap;
 }
+.arrow {
+  display: inline-block;
+  transition: transform 0.25s ease-out;
+}
+.row:hover .arrow { transform: translateX(6px); }
+.row:hover .name { color: var(--c-ink); }
 
 .short { display: none; }
 
@@ -76,14 +127,16 @@
 
 /* Tablet: naziv i opis jedan ispod drugog u srednjoj koloni */
 @media (max-width: 1000px) {
+  .dimension { display: none; }
   .row {
-    grid-template-columns: 40px 1fr auto;
+    grid-template-columns: 32px 44px 1fr auto;
     grid-template-areas:
-      "num name link"
-      "num desc link";
+      "num icon name link"
+      "num icon desc link";
     row-gap: 6px;
     align-items: start;
   }
+  .icon { width: 36px; height: 36px; }
   .link { align-self: center; }
 }
 
@@ -104,6 +157,9 @@
     padding: 16px 0;
   }
   .row:hover { background: none; }
+  .row:hover .num, .row:hover .name { transform: none; }
+  .row::before { display: none; }
+  .icon { display: none; }
   .num { font-size: 13px; line-height: 1.4; }
   .name { font-size: 16px; }
   .desc { font-size: 14px; line-height: 1.5; color: var(--c-ink-4); }

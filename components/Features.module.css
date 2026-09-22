@@ -6,13 +6,37 @@
 }
 
 .item {
+  position: relative;
   display: flex;
   flex-direction: column;
   gap: 8px;
-  padding: 22px 24px;
+  padding: 20px 24px 22px;
   border-right: 1px solid var(--c-line);
+  transition: background-color 0.25s;
 }
 .item:last-child { border-right: none; }
+.item:hover { background: var(--c-bg); }
+
+/* narandžasta linija preko gornje ivice na hover */
+.item::before {
+  content: "";
+  position: absolute;
+  left: -1px;
+  right: 0;
+  top: -1px;
+  height: 3px;
+  background: var(--c-accent);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.item:hover::before { transform: scaleX(1); }
+
+.row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
 
 .num {
   font: 800 11px var(--f-display);
@@ -20,11 +44,25 @@
   color: var(--c-accent);
 }
 
+.icon {
+  width: 24px;
+  height: 24px;
+  color: var(--c-ink-4);
+  transition: color 0.25s;
+}
+.icon :global(*) {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 0;
+}
+/* hover: ikonica se ponovo "iscrta" narandžastom */
+.item:hover .icon { color: var(--c-accent); }
+.item:hover .icon :global(*) { animation: redraw 0.7s cubic-bezier(0.65, 0, 0.35, 1); }
+@keyframes redraw { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
+
 .text { font: 600 14px/1.35 var(--f-body); }
 
 .short { display: none; }
 
-/* Tablet: 5 kolona je pretesno → 3 + 2 */
 @media (max-width: 900px) {
   .features { grid-template-columns: repeat(3, 1fr); }
   .item { border-bottom: 1px solid var(--c-line); }
@@ -32,11 +70,13 @@
   .item:nth-child(n + 4) { border-bottom: none; }
 }
 
-/* Mobilni — mreža 2 kolone, bez brojeva, poslednja stavka preko cele širine */
 @media (max-width: 720px) {
   .features { grid-template-columns: 1fr 1fr; }
   .item {
-    padding: 14px 16px;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 16px;
     border-right: 1px solid var(--c-line-strong);
     border-bottom: 1px solid var(--c-line-strong);
   }
@@ -44,9 +84,15 @@
   .item:nth-child(2n) { border-right: none; }
   .item:nth-child(n + 4) { border-bottom: 1px solid var(--c-line-strong); }
   .item:last-child { grid-column: span 2; border-right: none; border-bottom: none; }
+  .item::before { display: none; }
 
   .num { display: none; }
+  .icon { width: 18px; height: 18px; color: var(--c-accent); flex-shrink: 0; }
   .text { font-size: 13px; }
   .long { display: none; }
   .short { display: inline; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .item:hover .icon :global(*) { animation: none; }
 }
