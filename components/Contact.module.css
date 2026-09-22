@@ -1,0 +1,311 @@
+.contact {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border-bottom: 1px solid var(--c-line);
+}
+
+/* ================= LEVO ================= */
+.main {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 56px 40px;
+  border-right: 1px solid var(--c-line);
+}
+
+.eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 18px;
+  font: 600 11px var(--f-body);
+  letter-spacing: 0.2em;
+  color: var(--c-accent);
+}
+.dash { width: 26px; height: 2px; background: var(--c-accent); }
+
+.title {
+  max-width: 460px;
+  font: 800 clamp(30px, 3.4vw, 40px) / 1.05 var(--f-display);
+}
+
+.lead {
+  max-width: 440px;
+  margin: 12px 0 30px;
+  font: 400 15px/1.6 var(--f-body);
+  color: var(--c-ink-4);
+}
+
+/* ---- telefoni: veliki redovi, na hover se pojavi "POZOVI →" ---- */
+.phones {
+  align-self: stretch;
+  border-top: 1px solid var(--c-line);
+}
+
+.phoneRow {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  grid-template-areas:
+    "label hint"
+    "number hint";
+  align-items: center;
+  padding: 18px 0;
+  border-bottom: 1px solid var(--c-line);
+  color: var(--c-ink);
+  overflow: hidden;
+  transition: padding-left 0.25s ease-out, background-color 0.25s;
+}
+.phoneRow:hover {
+  padding-left: 16px;
+  background: var(--c-bg-alt);
+  color: var(--c-ink);
+}
+
+/* narandžasta ivica koja "izraste" sa leve strane */
+.phoneRow::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: var(--c-accent);
+  transform: scaleY(0);
+  transform-origin: bottom;
+  transition: transform 0.25s ease-out;
+}
+.phoneRow:hover::before { transform: scaleY(1); }
+
+.phoneLabel {
+  grid-area: label;
+  font: 600 11px var(--f-body);
+  letter-spacing: 0.16em;
+  color: var(--c-ink-4);
+}
+
+.phoneNumber {
+  grid-area: number;
+  margin-top: 4px;
+  font: 800 28px/1.1 var(--f-display);
+  letter-spacing: -0.02em;
+  color: var(--c-accent);
+  white-space: nowrap;
+}
+.phoneBig .phoneNumber {
+  font-size: clamp(34px, 3.8vw, 46px);
+  letter-spacing: -0.03em;
+  color: var(--c-ink);
+}
+
+.callHint {
+  grid-area: hint;
+  padding-right: 16px;
+  font: 800 12px var(--f-display);
+  letter-spacing: 0.12em;
+  color: var(--c-accent);
+  opacity: 0;
+  transform: translateX(-12px);
+  transition: opacity 0.25s, transform 0.25s ease-out;
+}
+.phoneRow:hover .callHint { opacity: 1; transform: none; }
+
+/* ---- checklist: na hover se kvačica "iscrta" ---- */
+.prepare { margin-top: 30px; }
+
+.smallLabel {
+  margin-bottom: 10px;
+  font: 600 11px var(--f-body);
+  letter-spacing: 0.14em;
+  color: var(--c-ink-4);
+}
+
+.checklist {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.checkItem {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font: 500 15px var(--f-body);
+  color: var(--c-ink-2);
+  cursor: default;
+}
+
+.check { width: 18px; height: 18px; flex-shrink: 0; }
+
+.checkBox {
+  fill: none;
+  stroke: var(--c-line-strong);
+  transition: stroke 0.2s, fill 0.2s;
+}
+
+.checkMark {
+  fill: none;
+  stroke: var(--c-ink);
+  stroke-width: 2;
+  stroke-dasharray: 16;            /* dužina linije kvačice */
+  stroke-dashoffset: 16;           /* → sakrivena */
+  transition: stroke-dashoffset 0.35s ease-out;
+}
+.checkItem:hover .checkBox { stroke: var(--c-accent); fill: var(--c-accent); }
+.checkItem:hover .checkMark { stroke-dashoffset: 0; }  /* → iscrta se */
+
+/* ================= DESNO ================= */
+.side {
+  display: flex;
+  flex-direction: column;
+}
+
+.hoursBox {
+  padding: 44px 40px 28px;
+  background: var(--c-bg-alt);
+  border-bottom: 1px solid var(--c-line);
+}
+
+.location {
+  padding: 26px 40px;
+  border-bottom: 1px solid var(--c-line);
+}
+.location .smallLabel { margin-bottom: 6px; }
+
+.address {
+  font: 500 16px/1.6 var(--f-body);
+  font-style: normal;
+  color: var(--c-ink-2);
+}
+
+/* ---- mapa (placeholder) ---- */
+.map {
+  position: relative;
+  flex: 1;
+  min-height: 240px;
+  overflow: hidden;
+  background-color: var(--c-ph-dark);
+  /* milimetarski papir: sitna mreža 12px + krupna 60px */
+  background-image:
+    linear-gradient(to right, rgb(0 0 0 / 0.07) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(0 0 0 / 0.07) 1px, transparent 1px),
+    linear-gradient(to right, rgb(0 0 0 / 0.035) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(0 0 0 / 0.035) 1px, transparent 1px);
+  background-size: 60px 60px, 60px 60px, 12px 12px, 12px 12px;
+  background-position: center;
+}
+
+/* krugovi udaljenosti oko oznake */
+.rings {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+}
+.rings span {
+  position: absolute;
+  left: 0;
+  top: 0;
+  border: 1px dashed rgb(0 0 0 / 0.18);
+  border-radius: 50%;              /* jedini krug na sajtu — ovo je mapa, ne UI */
+  transform: translate(-50%, -50%) scale(1);
+  transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.3s;
+}
+.rings span:nth-child(1) { width: 90px;  height: 90px; }
+.rings span:nth-child(2) { width: 180px; height: 180px; }
+.rings span:nth-child(3) { width: 290px; height: 290px; }
+
+.map:hover .rings span { border-color: rgb(255 106 44 / 0.45); }
+.map:hover .rings span:nth-child(1) { transform: translate(-50%, -50%) scale(1.15); }
+.map:hover .rings span:nth-child(2) { transform: translate(-50%, -50%) scale(1.1); transition-delay: 0.05s; }
+.map:hover .rings span:nth-child(3) { transform: translate(-50%, -50%) scale(1.06); transition-delay: 0.1s; }
+
+.pin {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 40px;
+  height: 40px;
+  color: var(--c-accent);
+  transform: translate(-50%, -50%);
+  transition: transform 0.4s ease-out;
+}
+.map:hover .pin { transform: translate(-50%, -50%) rotate(90deg); }
+
+.mapLabel {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 12px 16px;
+  background: var(--c-bg);
+  border-top: 1px solid var(--c-line);
+  border-right: 1px solid var(--c-line);
+}
+.mapTitle {
+  font: 700 11px var(--f-body);
+  letter-spacing: 0.16em;
+}
+.mapCoords {
+  font: 500 11px var(--f-body);
+  letter-spacing: 0.06em;
+  color: var(--c-ink-4);
+  font-variant-numeric: tabular-nums;
+}
+
+/* razmera u donjem desnom uglu */
+.mapScale {
+  position: absolute;
+  right: 16px;
+  bottom: 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font: 600 10px var(--f-body);
+  letter-spacing: 0.08em;
+  color: var(--c-ink-4);
+}
+.mapScaleBar {
+  width: 60px;
+  height: 6px;
+  border: 1px solid var(--c-ink-4);
+  border-top: none;
+  background: linear-gradient(to right, var(--c-ink-4) 50%, transparent 50%) bottom / 100% 2px no-repeat;
+}
+
+.short { display: none; }
+
+/* ============ responsive ============ */
+
+@media (max-width: 900px) {
+  .contact { grid-template-columns: 1fr; }
+  .main { border-right: none; border-bottom: 1px solid var(--c-line); }
+}
+
+@media (max-width: 720px) {
+  .main { padding: 26px 16px 22px; }
+  .eyebrow { display: none; }
+  .title { font-size: 26px; line-height: 1.2; }
+  .long { display: none; }
+  .short { display: inline; }
+  .lead { margin: 6px 0 18px; font-size: 14px; }
+
+  .phoneRow { padding: 14px 0; }
+  .phoneRow:hover { padding-left: 0; background: none; }
+  .phoneRow::before, .callHint { display: none; }
+  .phoneBig .phoneNumber { font-size: 30px; }
+  .phoneNumber { font-size: 22px; }
+
+  .prepare { margin-top: 22px; }
+  .checkItem { font-size: 14px; }
+
+  .hoursBox { padding: 22px 16px 16px; }
+  .location { padding: 18px 16px; }
+  .address { font-size: 15px; }
+  .map { min-height: 180px; }
+  .rings span:nth-child(3) { display: none; }
+}

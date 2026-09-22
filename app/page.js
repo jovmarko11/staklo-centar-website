@@ -6,6 +6,7 @@ import Process from "@/components/Process";
 import Gallery from "@/components/Gallery";
 import Wholesale from "@/components/Wholesale";
 import WhyUs from "@/components/WhyUs";
+import Contact from "@/components/Contact";
 import styles from "./page.module.css";
 
 export default function Home() {
@@ -20,7 +21,8 @@ export default function Home() {
         <Gallery />
         <Wholesale />
         <WhyUs />
-        {/* sledeće: Kontakt, Footer */}
+        <Contact />
+        {/* sledeće: Footer */}
       </main>
     </div>
   );

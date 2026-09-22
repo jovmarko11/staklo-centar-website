@@ -1,0 +1,138 @@
+.head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+
+.label {
+  font: 600 11px var(--f-body);
+  letter-spacing: 0.14em;
+  color: var(--c-ink-4);
+}
+
+/* ---- oznaka OTVORENO / ZATVORENO ---- */
+.status {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font: 700 10px var(--f-body);
+  letter-spacing: 0.16em;
+}
+.open { color: var(--c-accent); }
+.closed { color: var(--c-ink-4); }
+
+.dot {
+  position: relative;
+  width: 8px;
+  height: 8px;
+  background: currentColor;
+}
+/* "puls" oko tačke dok je otvoreno */
+.open .dot::after {
+  content: "";
+  position: absolute;
+  inset: -4px;
+  border: 1px solid currentColor;
+  animation: pulse 1.8s ease-out infinite;
+}
+@keyframes pulse {
+  from { transform: scale(0.6); opacity: 1; }
+  to   { transform: scale(1.6); opacity: 0; }
+}
+
+/* ---- redovi ---- */
+.list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  grid-template-areas:
+    "day time"
+    "bar bar";
+  row-gap: 8px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--c-line);
+}
+
+.day {
+  grid-area: day;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font: 600 15px var(--f-body);
+  color: var(--c-ink-2);
+}
+
+.todayTag {
+  padding: 2px 6px;
+  background: var(--c-ink);
+  color: var(--c-bg);
+  font: 700 9px var(--f-body);
+  letter-spacing: 0.16em;
+}
+
+.time {
+  grid-area: time;
+  font: 700 15px var(--f-display);
+  font-variant-numeric: tabular-nums;
+}
+.today .time { color: var(--c-accent); }
+
+/* traka 06–22h: podele na svaki sat */
+.bar {
+  grid-area: bar;
+  position: relative;
+  height: 8px;
+  background: repeating-linear-gradient(
+    to right,
+    var(--c-line-strong) 0 1px,
+    transparent 1px calc(100% / 16)
+  );
+  border-bottom: 1px solid var(--c-line-strong);
+}
+
+.segment {
+  position: absolute;
+  top: 2px;
+  bottom: 0;
+  background: var(--c-ink-3);
+  transform-origin: left;
+  transition: background-color 0.2s;
+}
+.today .segment { background: var(--c-accent); }
+.row:hover .segment { background: var(--c-accent); }
+
+.nowMarker {
+  position: absolute;
+  top: -5px;
+  bottom: -2px;
+  width: 2px;
+  margin-left: -1px;
+  background: var(--c-ink);
+}
+
+/* skala sati */
+.scale {
+  position: relative;
+  height: 16px;
+  margin-top: 6px;
+}
+.scale span {
+  position: absolute;
+  transform: translateX(-50%);
+  font: 500 10px var(--f-body);
+  letter-spacing: 0.06em;
+  color: var(--c-ink-4);
+}
+.scale span:first-child { transform: none; }
+.scale span:last-child { transform: translateX(-100%); }
+
+@media (prefers-reduced-motion: reduce) {
+  .open .dot::after { animation: none; }
+}
