@@ -11,6 +11,24 @@ const END = 22;   // …do 22h
 const SPAN = END - START;
 
 const pad = (n) => String(n).padStart(2, "0");
+
+// Dan i sat se računaju po vremenu u Srbiji, ne po satu posetioca
+// (da i neko iz inostranstva vidi tačno "otvoreno / zatvoreno").
+const WEEKDAYS = { Sun: 0, Mon: 1, Tue: 2, Wed: 3, Thu: 4, Fri: 5, Sat: 6 };
+function belgradeTime(date) {
+  const parts = Object.fromEntries(
+    new Intl.DateTimeFormat("en-US", {
+      timeZone: "Europe/Belgrade",
+      weekday: "short",
+      hour: "numeric",
+      minute: "numeric",
+      hourCycle: "h23",
+    })
+      .formatToParts(date)
+      .map((p) => [p.type, p.value])
+  );
+  return { day: WEEKDAYS[parts.weekday], hour: Number(parts.hour) + Number(parts.minute) / 60 };
+}
 const pct = (h) => `${((Math.min(Math.max(h, START), END) - START) / SPAN) * 100}%`;
 
 export default function OpeningHours({ hours }) {
@@ -23,8 +41,9 @@ export default function OpeningHours({ hours }) {
     return () => clearInterval(id);
   }, []);
 
-  const today = now ? now.getDay() : null;
-  const hourNow = now ? now.getHours() + now.getMinutes() / 60 : null;
+  const bg = now ? belgradeTime(now) : null;
+  const today = bg ? bg.day : null;
+  const hourNow = bg ? bg.hour : null;
 
   const rows = hours.map((h) => {
     const known = h.closed || (h.open != null && h.close != null);

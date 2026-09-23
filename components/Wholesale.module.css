@@ -85,7 +85,21 @@
   letter-spacing: 0.1em;
   white-space: nowrap;
 }
+.cta { position: relative; overflow: hidden; }
 .cta:hover { color: var(--c-bg); }
+
+/* šrafura na hover — isti potpis kao ostala glavna dugmad (ovde svetle linije na crnom) */
+.cta::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(-45deg, rgb(255 255 255 / 0.16) 0 1px, transparent 1px 7px);
+  opacity: 0;
+  transition: opacity 0.25s;
+}
+.cta:hover::before { opacity: 1; animation: hatchSlide 1.2s linear infinite; }
+@keyframes hatchSlide { to { background-position: -19.8px 0; } }
+.cta > * { position: relative; }
 
 .arrow {
   display: inline-block;

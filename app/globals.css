@@ -55,3 +55,27 @@ a { color: var(--c-accent); text-decoration: none; }
 a:hover { color: var(--c-accent-soft); }
 button { font: inherit; border: none; background: none; cursor: pointer; }
 img { max-width: 100%; display: block; }
+
+/* ---- pristupačnost i sitni detalji ---- */
+
+/* fokus sa tastature (Tab): narandžasti okvir, oštre ivice kao ostatak sajta */
+:focus-visible {
+  outline: 2px solid var(--c-accent);
+  outline-offset: 3px;
+}
+
+/* selekcija teksta u boji brenda */
+::selection {
+  background: var(--c-accent);
+  color: var(--c-ink);
+}
+
+/* korisnici koji u sistemu traže manje pokreta: animacije se odmah završe */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}

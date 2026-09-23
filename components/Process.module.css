@@ -172,7 +172,7 @@
   letter-spacing: 0.14em;
   text-transform: uppercase;
 }
-.metaKey { color: var(--c-ink-4); }
+.metaKey { color: var(--c-ink-4); white-space: nowrap; }
 .metaVal { color: var(--c-ink); text-align: right; transition: color 0.25s; }
 .step:hover .metaVal { color: var(--c-accent); }
 
@@ -182,7 +182,7 @@
   .dimension { display: none; }
 }
 
-@media (max-width: 900px) {
+@media (max-width: 1100px) {
   .grid { grid-template-columns: repeat(2, 1fr); }
   .arrowHead { display: none; }
 }

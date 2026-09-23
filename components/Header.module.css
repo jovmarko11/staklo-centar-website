@@ -198,8 +198,17 @@ a.phone:hover { color: var(--c-accent); }
 
 /* ============ responsive ============ */
 
-/* Tablet: nav više ne staje → sakrij ga (meni po stranama dolazi kasnije). */
-@media (max-width: 1100px) {
+/* Uži desktop: zbij razmake u meniju */
+@media (max-width: 1300px) {
+  .navLink { padding: 0 14px; }
+  .navLink::after { left: 14px; right: 14px; }
+  .brand { padding: 18px 24px; }
+  .phoneBox { padding: 0 20px; }
+  .cta { padding: 0 24px; }
+}
+
+/* Tablet: meni više ne staje → sakrij ga (meni po stranama dolazi kasnije). */
+@media (max-width: 1180px) {
   .nav { display: none; }
 }
 

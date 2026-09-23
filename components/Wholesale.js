@@ -64,7 +64,8 @@ export default function Wholesale() {
 
         <div className={styles.actions}>
           <a href="#kontakt" className={styles.cta}>
-            POSTANITE PARTNER <span className={styles.arrow} aria-hidden="true">→</span>
+            <span>POSTANITE PARTNER</span>
+            <span className={styles.arrow} aria-hidden="true">→</span>
           </a>
           <div className={styles.callBox}>
             <span className={styles.callLabel}>ILI POZOVITE</span>
