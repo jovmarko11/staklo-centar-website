@@ -41,6 +41,8 @@
   transition: outline-offset 0.3s ease-out, outline-color 0.3s;
 }
 
+.logoMark { width: 12px; height: 16px; }
+
 .brandText { display: flex; flex-direction: column; }
 
 .brandName {

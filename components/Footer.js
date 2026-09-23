@@ -1,5 +1,6 @@
 import { site, isLinkActive } from "@/lib/content";
 import Phone from "./Phone";
+import LogoMark from "./ui/LogoMark";
 import styles from "./Footer.module.css";
 
 const columns = [
@@ -56,7 +57,7 @@ export default function Footer() {
       {/* ---- gornji deo: brend + kolone ---- */}
       <div className={styles.top}>
         <div className={styles.brand}>
-          <span className={styles.logo} aria-hidden="true">S</span>
+          <span className={styles.logo} aria-hidden="true"><LogoMark className={styles.logoMark} /></span>
           <div>
             <p className={styles.brandName}>{site.fullName.toUpperCase()}</p>
             <p className={styles.tagline}>{site.tagline}</p>

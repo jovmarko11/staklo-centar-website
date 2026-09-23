@@ -27,6 +27,8 @@
   font: 800 15px var(--f-display);
 }
 
+.logoMark { width: 12px; height: 16px; }
+
 .brandName { font: 800 16px/1.2 var(--f-display); }
 
 .tagline {
