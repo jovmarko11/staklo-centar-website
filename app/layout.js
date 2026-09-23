@@ -17,7 +17,7 @@ const plex = IBM_Plex_Sans({
 
 // TODO (Marko): ovde ide SEO — title, description, openGraph. Radimo u lekciji 6.
 export const metadata = {
-  title: "Staklo Centar Čačak",
+  title: "Staklo Centar Beograd",
   description: "Prodaja i ugradnja auto-stakala.",
 };
 

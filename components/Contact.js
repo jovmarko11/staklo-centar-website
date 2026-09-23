@@ -56,7 +56,7 @@ function MapPlaceholder() {
       </svg>
 
       <div className={styles.mapLabel}>
-        <span className={styles.mapTitle}>MAPA — ČAČAK</span>
+        <span className={styles.mapTitle}>MAPA — BEOGRAD</span>
         <span className={styles.mapCoords}>
           {lat.toFixed(4)}° N · {lng.toFixed(4)}° E
         </span>

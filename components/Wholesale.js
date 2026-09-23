@@ -4,14 +4,14 @@ import styles from "./Wholesale.module.css";
 
 const benefits = [
   { title: "Veleprodaja stakala i pribora", desc: "Šoferšajbne, bočna i zadnja stakla, lepila, letvice i senzori." },
-  { title: "Brza isporuka", desc: "Čačak istog dana, okolina do 24 sata." },
+  { title: "Brza isporuka", desc: "Beograd istog dana, okolina do 24 sata." },
   { title: "Uslovi za partnere", desc: "Rabat po obimu, odloženo plaćanje." },
   { title: "Tehnička podrška i garancija", desc: "Pomoć pri ugradnji i garancija na svaku stavku." },
 ];
 
 const facts = [
-  { value: "Isti dan", label: "Isporuka u Čačku" },
-  { value: "Do 24h", label: "Okolina Čačka" },
+  { value: "Isti dan", label: "Isporuka u Beogradu" },
+  { value: "Do 24h", label: "Okolina Beograda" },
   { value: "Rabat", label: "Po obimu" },
 ];
 
@@ -58,7 +58,7 @@ export default function Wholesale() {
         </h2>
 
         <p className={styles.lead}>
-          Veleprodajne cene, isporuka u Čačku istog dana, tehnička podrška i garancija na
+          Veleprodajne cene, isporuka u Beogradu istog dana, tehnička podrška i garancija na
           svaku stavku.
         </p>
 

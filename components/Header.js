@@ -10,7 +10,7 @@ export default function Header() {
         <span className={styles.logo} aria-hidden="true">S</span>
         <span className={styles.brandText}>
           <span className={styles.brandName}>STAKLO CENTAR</span>
-          <span className={styles.brandSub}>ČAČAK / AUTO-STAKLA</span>
+          <span className={styles.brandSub}>BEOGRAD / AUTO-STAKLA</span>
         </span>
       </a>
 

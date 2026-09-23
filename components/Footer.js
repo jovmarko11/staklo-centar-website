@@ -24,9 +24,9 @@ const columns = [
 // "Sastavnica" — tabela u uglu svakog tehničkog crteža. Potpis sajta.
 const year = new Date().getFullYear();
 const titleBlock = [
-  { k: "Naziv", v: "Staklo Centar Čačak" },
+  { k: "Naziv", v: "Staklo Centar Beograd" },
   { k: "Delatnost", v: "Prodaja i ugradnja auto-stakala" },
-  { k: "Lokacija", v: "Čačak, Srbija" },
+  { k: "Lokacija", v: "Beograd, Srbija" },
   { k: "Razmera", v: "1 : 1" },
   { k: "List", v: "01 / 01" },
 ];
@@ -58,8 +58,8 @@ export default function Footer() {
         <div className={styles.brand}>
           <span className={styles.logo} aria-hidden="true">S</span>
           <div>
-            <p className={styles.brandName}>STAKLO CENTAR ČAČAK</p>
-            <p className={styles.tagline}>Prodaja i ugradnja auto-stakala. Čačak i okolina, Srbija.</p>
+            <p className={styles.brandName}>STAKLO CENTAR BEOGRAD</p>
+            <p className={styles.tagline}>Prodaja i ugradnja auto-stakala. Beograd i okolina, Srbija.</p>
           </div>
         </div>
 
@@ -108,7 +108,7 @@ export default function Footer() {
       </div>
 
       <p className={styles.copy}>
-        © {year} STAKLO CENTAR ČAČAK. SVA PRAVA ZADRŽANA.
+        © {year} STAKLO CENTAR BEOGRAD. SVA PRAVA ZADRŽANA.
       </p>
     </footer>
   );

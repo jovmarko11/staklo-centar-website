@@ -24,7 +24,7 @@ export default function Hero() {
         <p className={styles.lead}>
           <span className={styles.long}>
             Šoferšajbne, bočna i zadnja stakla za sve marke vozila. Radimo direktno sa
-            osiguranjem, dolazimo na adresu u Čačku i okolini.
+            osiguranjem, dolazimo na adresu u Beogradu i okolini.
           </span>
           <span className={styles.short}>
             Sve marke vozila, rad sa osiguranjem, dolazak na adresu.

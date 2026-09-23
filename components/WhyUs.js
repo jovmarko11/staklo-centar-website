@@ -13,7 +13,7 @@ const stats = [
 const reviews = [
   {
     text: "Pukotina na šoferšajbni u petak, u subotu novo staklo. Sve preko osiguranja, bez komplikacija.",
-    author: "Miloš J., Čačak",
+    author: "Miloš J., Beograd",
   },
   {
     text: "Došli su na adresu i zamenili staklo na kombiju dok smo radili. Profesionalno i bez zastoja.",
@@ -21,7 +21,7 @@ const reviews = [
   },
   {
     text: "Objasnili su razliku između OEM i zamenskog stakla i pustili me da sam izaberem.",
-    author: "Jelena S., Gornji Milanovac",
+    author: "Jelena S., Zemun",
   },
 ];
 
