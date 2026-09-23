@@ -19,6 +19,9 @@ const plex = IBM_Plex_Sans({
 export const metadata = {
   title: "Staklo Centar Beograd",
   description: "Prodaja i ugradnja auto-stakala.",
+  // PRIVREMENO: dok sajt ima placeholder podatke, Google ne sme da ga indeksira.
+  // Na dan objave ovo brišemo (ili stavljamo index: true).
+  robots: { index: false, follow: false },
 };
 
 export default function RootLayout({ children }) {
