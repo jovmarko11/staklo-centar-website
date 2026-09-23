@@ -1,18 +1,10 @@
 import DimensionLine from "./ui/DimensionLine";
 import styles from "./Gallery.module.css";
 
-// PLACEHOLDER: nazivi radova su iz dizajna. Kad fotograf pošalje slike,
-// ovde upisujemo prave radove i putanje do slika (npr. "/images/radovi/golf7-pre.jpg").
-// Dok je `before`/`after` null, umesto fotografije se prikazuje tehnički crtež
-// (vrsta crteža zavisi od `kind`).
-const works = [
-  { title: "Golf 7 — šoferšajbna", kind: "windshield", before: null, after: null },
-  { title: "Škoda Octavia — zadnje staklo", kind: "rear", before: null, after: null },
-  { title: "Passat B8 — popravka udara", kind: "chip", before: null, after: null },
-  { title: "Fiat Punto — bočno staklo", kind: "side", before: null, after: null },
-  { title: "Transporter T6 — šoferšajbna", kind: "windshield", before: null, after: null },
-  { title: "BMW 320d — ADAS kalibracija", kind: "adas", before: null, after: null },
-];
+import { works } from "@/lib/content";
+
+// Radovi (i putanje do fotografija) se upisuju u lib/content.js → `works`.
+// Dok je `before`/`after` null, umesto fotografije se prikazuje tehnički crtež.
 
 /* ---------- crteži (placeholder dok nema fotografija) ---------- */
 

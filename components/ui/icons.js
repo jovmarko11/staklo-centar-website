@@ -157,3 +157,21 @@ export function IconCertificate(props) {
     </svg>
   );
 }
+
+/* ---------- mapa: naziv iz lib/content.js → komponenta ikonice ---------- */
+export const ICONS = {
+  shield: IconShield,
+  clock: IconClock,
+  glass: IconGlass,
+  document: IconDocument,
+  pin: IconPin,
+  windshieldSwap: IconWindshieldSwap,
+  rockChip: IconRockChip,
+  sideWindow: IconSideWindow,
+  adasCamera: IconAdasCamera,
+  suctionLifter: IconSuctionLifter,
+  phoneCamera: IconPhoneCamera,
+  calendar: IconCalendar,
+  windshieldInstall: IconWindshieldInstall,
+  certificate: IconCertificate,
+};

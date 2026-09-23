@@ -1,4 +1,5 @@
 import { Archivo, IBM_Plex_Sans } from "next/font/google";
+import { site } from "@/lib/content";
 import "./globals.css";
 
 // next/font skida fontove u build-u i servira ih sa tvog domena (bez poziva Google-u u runtime-u).
@@ -17,8 +18,8 @@ const plex = IBM_Plex_Sans({
 
 // TODO (Marko): ovde ide SEO — title, description, openGraph. Radimo u lekciji 6.
 export const metadata = {
-  title: "Staklo Centar Beograd",
-  description: "Prodaja i ugradnja auto-stakala.",
+  title: site.fullName,
+  description: site.tagline,
   // PRIVREMENO: dok sajt ima placeholder podatke, Google ne sme da ga indeksira.
   // Na dan objave ovo brišemo (ili stavljamo index: true).
   robots: { index: false, follow: false },

@@ -1,4 +1,4 @@
-import { site } from "@/lib/site";
+import { site, contact } from "@/lib/content";
 import OpeningHours from "./OpeningHours";
 import styles from "./Contact.module.css";
 
@@ -6,14 +6,8 @@ import styles from "./Contact.module.css";
 // Do tada levo su telefoni i šta pripremiti za poziv.
 
 const phones = [
-  { number: site.phones.landline.label, href: site.phones.landline.href, label: "DEŽURNI TELEFON", big: true },
+  { number: site.phones.landline.label, href: site.phones.landline.href, label: site.landlineIs24h ? "DEŽURNI TELEFON" : "TELEFON", big: true },
   { number: site.phones.mobile.label, href: site.phones.mobile.href, label: "MOBILNI" },
-];
-
-const checklist = [
-  "Marka, model i godište vozila",
-  "Fotografija oštećenja",
-  "Da li idete preko osiguranja",
 ];
 
 function PhoneRow({ phone }) {
@@ -56,7 +50,7 @@ function MapPlaceholder() {
       </svg>
 
       <div className={styles.mapLabel}>
-        <span className={styles.mapTitle}>MAPA — BEOGRAD</span>
+        <span className={styles.mapTitle}>MAPA — {site.city.toUpperCase()}</span>
         <span className={styles.mapCoords}>
           {lat.toFixed(4)}° N · {lng.toFixed(4)}° E
         </span>
@@ -83,12 +77,11 @@ export default function Contact() {
         </p>
 
         <h2 className={styles.title}>
-          <span className={styles.long}>Zatražite besplatnu procenu</span>
+          <span className={styles.long}>{contact.title}</span>
           <span className={styles.short}>Kontakt</span>
         </h2>
         <p className={styles.lead}>
-          Pozovite nas ili svratite u radionicu. Odgovaramo u toku radnog dana, najčešće za
-          30 minuta.
+          {contact.lead} {site.responseTime}
         </p>
 
         <div className={styles.phones}>
@@ -98,9 +91,9 @@ export default function Contact() {
         </div>
 
         <div className={styles.prepare}>
-          <p className={styles.smallLabel}>ZA BRŽU PROCENU PRIPREMITE</p>
+          <p className={styles.smallLabel}>{contact.checklistTitle}</p>
           <ul className={styles.checklist}>
-            {checklist.map((item) => (
+            {contact.checklist.map((item) => (
               <li key={item} className={styles.checkItem}>
                 <Checkbox />
                 {item}

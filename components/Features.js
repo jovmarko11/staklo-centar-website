@@ -1,19 +1,13 @@
-import { IconShield, IconClock, IconGlass, IconDocument, IconPin } from "./ui/icons";
+import { features } from "@/lib/content";
+import { ICONS } from "./ui/icons";
 import styles from "./Features.module.css";
-
-// short = kraća verzija za mobilni (gde se razlikuje)
-const items = [
-  { text: "Garancija na ugradnju", Icon: IconShield },
-  { text: "Isti dan / brzo", Icon: IconClock },
-  { text: "Originalna (OEM) stakla", short: "OEM stakla", Icon: IconGlass },
-  { text: "Rad sa osiguranjem", Icon: IconDocument },
-  { text: "Dolazak na adresu", Icon: IconPin },
-];
 
 export default function Features() {
   return (
     <section className={styles.features} aria-label="Prednosti">
-      {items.map(({ text, short, Icon }, i) => (
+      {features.map(({ text, short, icon }, i) => {
+        const Icon = ICONS[icon];
+        return (
         <div key={text} className={styles.item}>
           <div className={styles.row}>
             <span className={styles.num}>{String(i + 1).padStart(2, "0")}</span>
@@ -30,7 +24,8 @@ export default function Features() {
             )}
           </span>
         </div>
-      ))}
+        );
+      })}
     </section>
   );
 }

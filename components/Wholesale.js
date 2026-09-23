@@ -1,21 +1,8 @@
-import { site } from "@/lib/site";
+import { site, wholesale } from "@/lib/content";
 import Phone from "./Phone";
 import styles from "./Wholesale.module.css";
 
-const benefits = [
-  { title: "Veleprodaja stakala i pribora", desc: "Šoferšajbne, bočna i zadnja stakla, lepila, letvice i senzori." },
-  { title: "Brza isporuka", desc: "Beograd istog dana, okolina do 24 sata." },
-  { title: "Uslovi za partnere", desc: "Rabat po obimu, odloženo plaćanje." },
-  { title: "Tehnička podrška i garancija", desc: "Pomoć pri ugradnji i garancija na svaku stavku." },
-];
-
-const facts = [
-  { value: "Isti dan", label: "Isporuka u Beogradu" },
-  { value: "Do 24h", label: "Okolina Beograda" },
-  { value: "Rabat", label: "Po obimu" },
-];
-
-const range = ["Šoferšajbne", "Bočna stakla", "Zadnja stakla", "Lepila", "Letvice", "Senzori"];
+const { benefits, facts, range } = wholesale;
 
 // Tehnički crtež šoferšajbne (dekoracija) — kotne linije kao na nacrtu.
 function Blueprint({ className }) {
@@ -43,23 +30,24 @@ function Blueprint({ className }) {
 }
 
 export default function Wholesale() {
+  if (!wholesale.enabled) return null;
+  const phone = wholesale.phone ?? site.phones.landline;
   return (
     <section id="za-servise" className={styles.wholesale}>
       {/* LEVO — narandžasti panel */}
       <div className={styles.panel}>
         <p className={styles.eyebrow}>
           <span className={styles.dash} aria-hidden="true" />
-          ZA AUTO-SERVISE
+          {wholesale.eyebrow}
         </p>
 
         <h2 className={styles.title}>
-          <span className={styles.long}>Veleprodaja stakala za servise</span>
-          <span className={styles.short}>Veleprodaja stakala</span>
+          <span className={styles.long}>{wholesale.title}</span>
+          <span className={styles.short}>{wholesale.titleShort}</span>
         </h2>
 
         <p className={styles.lead}>
-          Veleprodajne cene, isporuka u Beogradu istog dana, tehnička podrška i garancija na
-          svaku stavku.
+          {wholesale.lead}
         </p>
 
         <div className={styles.actions}>
@@ -69,7 +57,7 @@ export default function Wholesale() {
           </a>
           <div className={styles.callBox}>
             <span className={styles.callLabel}>ILI POZOVITE</span>
-            <Phone phone={site.phones.landline} className={styles.callPhone} />
+            <Phone phone={phone} className={styles.callPhone} />
           </div>
         </div>
 

@@ -1,4 +1,4 @@
-import { site } from "@/lib/site";
+import { site, hero } from "@/lib/content";
 import Phone from "./Phone";
 import HeroDrawing from "./HeroDrawing";
 import styles from "./Hero.module.css";
@@ -6,29 +6,25 @@ import styles from "./Hero.module.css";
 // Neki tekstovi su u dizajnu kraći na mobilnom — renderujemo obe verzije,
 // a CSS (.long / .short) prikazuje odgovarajuću.
 export default function Hero() {
+  const { from, to, scaleMax: max } = hero.badge;
   return (
     <section className={styles.hero}>
       {/* LEVO — tekst */}
       <div className={styles.content}>
         <p className={styles.eyebrow}>
           <span className={styles.dash} aria-hidden="true" />
-          <span className={styles.long}>PRODAJA + PROFESIONALNA UGRADNJA</span>
-          <span className={styles.short}>PRODAJA + UGRADNJA</span>
+          <span className={styles.long}>{hero.eyebrow}</span>
+          <span className={styles.short}>{hero.eyebrowShort}</span>
         </p>
 
         <h1 className={styles.title}>
-          Za čas ti zamenimo glass —{" "}
-          <span className={styles.accent}>brzo sa garancijom.</span>
+          {hero.title}{" "}
+          <span className={styles.accent}>{hero.titleAccent}</span>
         </h1>
 
         <p className={styles.lead}>
-          <span className={styles.long}>
-            Šoferšajbne, bočna i zadnja stakla za sve marke vozila. Radimo direktno sa
-            osiguranjem, dolazimo na adresu u Beogradu i okolini.
-          </span>
-          <span className={styles.short}>
-            Sve marke vozila, rad sa osiguranjem, dolazak na adresu.
-          </span>
+          <span className={styles.long}>{hero.lead}</span>
+          <span className={styles.short}>{hero.leadShort}</span>
         </p>
 
         <div className={styles.buttons}>
@@ -42,7 +38,7 @@ export default function Hero() {
         </div>
 
         <div className={styles.callRow}>
-          <span className={styles.callLabel}>POZOVITE ODMAH</span>
+          <span className={styles.callLabel}>{hero.callLabel}</span>
           <Phone phone={site.phones.mobile} className={styles.callPhone} />
         </div>
       </div>
@@ -66,14 +62,20 @@ export default function Hero() {
         </div>
 
         <div className={styles.badge}>
-          <div className={styles.badgeValue}>60–90</div>
-          <div className={styles.badgeLabel}>MINUTA ZAMENA</div>
-          {/* skala 0–120 min sa istaknutim opsegom 60–90 */}
+          <div className={styles.badgeValue}>{hero.badge.value}</div>
+          <div className={styles.badgeLabel}>{hero.badge.label}</div>
+          {/* skala 0–max min sa istaknutim opsegom from–to (računa se iz content.js) */}
           <div className={styles.badgeScale} aria-hidden="true">
-            <span className={styles.badgeRange} />
+            <span
+              className={styles.badgeRange}
+              style={{ left: `${(from / max) * 100}%`, width: `${((to - from) / max) * 100}%` }}
+            />
           </div>
           <div className={styles.badgeTicks} aria-hidden="true">
-            <span>0</span><span>60</span><span>90</span><span>120</span>
+            <span>0</span>
+            <span style={{ left: `${(from / max) * 100}%` }}>{from}</span>
+            <span style={{ left: `${(to / max) * 100}%` }}>{to}</span>
+            <span>{max}</span>
           </div>
         </div>
       </div>

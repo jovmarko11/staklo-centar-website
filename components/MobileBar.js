@@ -1,4 +1,4 @@
-import { site } from "@/lib/site";
+import { site } from "@/lib/content";
 import styles from "./MobileBar.module.css";
 
 // Fiksna traka na dnu ekrana — vidi se samo na mobilnom (CSS).

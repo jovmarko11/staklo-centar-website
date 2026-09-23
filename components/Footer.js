@@ -1,4 +1,4 @@
-import { site } from "@/lib/site";
+import { site, isLinkActive } from "@/lib/content";
 import Phone from "./Phone";
 import styles from "./Footer.module.css";
 
@@ -24,9 +24,9 @@ const columns = [
 // "Sastavnica" — tabela u uglu svakog tehničkog crteža. Potpis sajta.
 const year = new Date().getFullYear();
 const titleBlock = [
-  { k: "Naziv", v: "Staklo Centar Beograd" },
+  { k: "Naziv", v: site.fullName },
   { k: "Delatnost", v: "Prodaja i ugradnja auto-stakala" },
-  { k: "Lokacija", v: "Beograd, Srbija" },
+  { k: "Lokacija", v: `${site.city}, Srbija` },
   { k: "Razmera", v: "1 : 1" },
   { k: "List", v: "01 / 01" },
 ];
@@ -34,17 +34,17 @@ const titleBlock = [
 // Veliki natpis kao SVG: textLength ga uvek razvuče tačno na širinu, na svakom ekranu.
 function Wordmark() {
   return (
-    <svg className={styles.wordmark} viewBox="0 0 1000 124" role="img" aria-label="Staklo Centar">
+    <svg className={styles.wordmark} viewBox="0 0 1000 124" role="img" aria-label={site.name}>
       <defs>
         <clipPath id="wordmark-fill">
           <rect className={styles.wordmarkWipe} x="0" y="0" width="1000" height="124" />
         </clipPath>
       </defs>
       <text x="0" y="112" textLength="1000" lengthAdjust="spacingAndGlyphs" className={styles.wordmarkOutline}>
-        STAKLO CENTAR
+        {site.name.toUpperCase()}
       </text>
       <text x="0" y="112" textLength="1000" lengthAdjust="spacingAndGlyphs" className={styles.wordmarkFill} clipPath="url(#wordmark-fill)">
-        STAKLO CENTAR
+        {site.name.toUpperCase()}
       </text>
     </svg>
   );
@@ -58,8 +58,8 @@ export default function Footer() {
         <div className={styles.brand}>
           <span className={styles.logo} aria-hidden="true">S</span>
           <div>
-            <p className={styles.brandName}>STAKLO CENTAR BEOGRAD</p>
-            <p className={styles.tagline}>Prodaja i ugradnja auto-stakala. Beograd i okolina, Srbija.</p>
+            <p className={styles.brandName}>{site.fullName.toUpperCase()}</p>
+            <p className={styles.tagline}>{site.tagline}</p>
           </div>
         </div>
 
@@ -67,7 +67,7 @@ export default function Footer() {
           {columns.map((col) => (
             <div key={col.title} className={styles.col}>
               <p className={styles.colTitle}>{col.title}</p>
-              {col.links.map((l) => (
+              {col.links.filter((l) => isLinkActive(l.href)).map((l) => (
                 <a key={l.label} href={l.href} className={styles.link}>{l.label}</a>
               ))}
             </div>
@@ -108,7 +108,7 @@ export default function Footer() {
       </div>
 
       <p className={styles.copy}>
-        © {year} STAKLO CENTAR BEOGRAD. SVA PRAVA ZADRŽANA.
+        © {year} {site.fullName.toUpperCase()}. SVA PRAVA ZADRŽANA.
       </p>
     </footer>
   );

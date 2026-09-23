@@ -1,4 +1,4 @@
-import { site, nav } from "@/lib/site";
+import { site, nav, isLinkActive } from "@/lib/content";
 import Phone from "./Phone";
 import styles from "./Header.module.css";
 
@@ -6,17 +6,17 @@ export default function Header() {
   return (
     <header className={styles.header}>
       {/* BLOK 1 — brend */}
-      <a href="#" className={styles.brand} aria-label="Staklo Centar — početak strane">
+      <a href="#" className={styles.brand} aria-label={`${site.fullName} — početak strane`}>
         <span className={styles.logo} aria-hidden="true">S</span>
         <span className={styles.brandText}>
-          <span className={styles.brandName}>STAKLO CENTAR</span>
-          <span className={styles.brandSub}>BEOGRAD / AUTO-STAKLA</span>
+          <span className={styles.brandName}>{site.name.toUpperCase()}</span>
+          <span className={styles.brandSub}>{site.headerSub}</span>
         </span>
       </a>
 
       {/* BLOK 2 — navigacija (sakriva se ispod 1100px) */}
       <nav className={styles.nav} aria-label="Glavni meni">
-        {nav.map((item) => (
+        {nav.filter((item) => isLinkActive(item.href)).map((item) => (
           <a key={item.href} href={item.href} className={styles.navLink}>
             {item.label}
           </a>
@@ -27,8 +27,8 @@ export default function Header() {
       <div className={styles.actions}>
         <div className={styles.phoneBox}>
           <span className={styles.phoneLabel}>
-            <span className={styles.live} aria-hidden="true" />
-            DEŽURNI TELEFON
+            {site.landlineIs24h && <span className={styles.live} aria-hidden="true" />}
+            {site.landlineIs24h ? "DEŽURNI TELEFON" : "TELEFON"}
           </span>
           <Phone phone={site.phones.landline} className={styles.phone} />
         </div>

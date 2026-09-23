@@ -259,8 +259,6 @@ a.callPhone:hover { color: var(--c-accent); }
 }
 .badgeRange {
   position: absolute;
-  left: 50%;           /* 60 / 120 */
-  width: 25%;          /* 30 / 120 */
   top: 2px;
   bottom: 0;
   background: var(--c-accent);
@@ -278,8 +276,6 @@ a.callPhone:hover { color: var(--c-accent); }
 }
 .badgeTicks span { position: absolute; transform: translateX(-50%); }
 .badgeTicks span:nth-child(1) { left: 0; transform: none; }
-.badgeTicks span:nth-child(2) { left: 50%; }
-.badgeTicks span:nth-child(3) { left: 75%; }
 .badgeTicks span:nth-child(4) { right: 0; transform: none; }
 
 .short { display: none; }

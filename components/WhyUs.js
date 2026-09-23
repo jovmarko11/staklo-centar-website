@@ -1,29 +1,9 @@
 import DimensionLine from "./ui/DimensionLine";
 import styles from "./WhyUs.module.css";
 
-// PLACEHOLDER: brojke i recenzije su iz dizajna i NISU prave.
-// Pre objave sajta obavezno zameniti podacima koje da vlasnik
-// (prave recenzije — npr. sa Google profila firme — uz dozvolu kupca).
-const stats = [
-  { value: "18", suffix: "+", label: "Godina iskustva", short: "Godina", mobile: "18+" },
-  { value: "12.000", suffix: "+", label: "Ugradnji stakala", short: "Ugradnji", mobile: "12k+" },
-  { value: "4,9", suffix: "/5", label: "Ocena kupaca", short: "Ocena", mobile: "4,9", rating: 4.9 },
-];
+import { whyUs } from "@/lib/content";
 
-const reviews = [
-  {
-    text: "Pukotina na šoferšajbni u petak, u subotu novo staklo. Sve preko osiguranja, bez komplikacija.",
-    author: "Miloš J., Beograd",
-  },
-  {
-    text: "Došli su na adresu i zamenili staklo na kombiju dok smo radili. Profesionalno i bez zastoja.",
-    author: "Auto-servis Petrović",
-  },
-  {
-    text: "Objasnili su razliku između OEM i zamenskog stakla i pustili me da sam izaberem.",
-    author: "Jelena S., Zemun",
-  },
-];
+// Brojke i recenzije se upisuju u lib/content.js → `whyUs`.
 
 // Oznaka za poravnanje u uglu kartice (kao na tehničkom crtežu)
 function Crosshair({ className }) {
@@ -59,6 +39,8 @@ function Stars({ rating }) {
 }
 
 export default function WhyUs() {
+  if (!whyUs.enabled) return null;
+  const { stats, reviews } = whyUs;
   return (
     <section id="zasto-mi" className={styles.why}>
       <div className={styles.head}>
