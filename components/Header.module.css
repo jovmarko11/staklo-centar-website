@@ -41,7 +41,7 @@
   transition: outline-offset 0.3s ease-out, outline-color 0.3s;
 }
 
-.logoMark { width: 12px; height: 16px; }
+.logoMark { width: 11px; height: 18px; }
 
 .brandText { display: flex; flex-direction: column; }
 
@@ -214,7 +214,7 @@ a.phone:hover { color: var(--c-accent); }
   .nav { display: none; }
 }
 
-/* Mobilni (po dizajnu): samo "STAKLO CENTAR" levo + narandžasti broj desno. */
+/* Mobilni (po dizajnu): samo naziv firme levo + narandžasti broj desno. */
 @media (max-width: 720px) {
   .header {
     align-items: center;

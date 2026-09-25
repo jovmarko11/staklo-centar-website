@@ -27,7 +27,7 @@ export const metadata = {
   metadataBase: new URL(site.url),   // od ovoga se prave pune adrese (canonical, og:image…)
   title: {
     default: seo.title,
-    template: `%s | ${site.fullName}`, // podstrane: "Zamena šoferšajbne | Staklo Centar Beograd"
+    template: `%s | ${site.fullName}`, // podstrane: "Zamena šoferšajbne | Čas Glass"
   },
   description: seo.description,
   applicationName: site.fullName,

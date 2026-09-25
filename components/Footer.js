@@ -76,9 +76,9 @@ export default function Footer() {
 
           <div className={styles.col}>
             <p className={styles.colTitle}>Kontakt</p>
-            <Phone phone={site.phones.landline} className={styles.link} />
-            <Phone phone={site.phones.mobile} className={styles.link} />
-            <span className={styles.link}>{site.address.street}, {site.address.city}</span>
+            <Phone phone={site.phones.primary} className={styles.link} />
+            <Phone phone={site.phones.secondary} className={styles.link} />
+            <span className={styles.link}>{site.address.street}, {site.address.municipality ?? site.address.city}</span>
           </div>
         </nav>
       </div>

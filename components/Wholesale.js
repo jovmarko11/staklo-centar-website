@@ -31,7 +31,7 @@ function Blueprint({ className }) {
 
 export default function Wholesale() {
   if (!wholesale.enabled) return null;
-  const phone = wholesale.phone ?? site.phones.landline;
+  const phone = wholesale.phone ?? site.phones.primary;
   return (
     <section id="za-servise" className={styles.wholesale}>
       {/* LEVO — narandžasti panel */}
@@ -51,12 +51,12 @@ export default function Wholesale() {
         </p>
 
         <div className={styles.actions}>
-          <a href="#kontakt" className={styles.cta}>
-            <span>POSTANITE PARTNER</span>
+          <a href={phone.href} className={styles.cta}>
+            <span>POSTANI PARTNER</span>
             <span className={styles.arrow} aria-hidden="true">→</span>
           </a>
           <div className={styles.callBox}>
-            <span className={styles.callLabel}>ILI POZOVITE</span>
+            <span className={styles.callLabel}>TELEFON ZA SERVISE</span>
             <Phone phone={phone} className={styles.callPhone} />
           </div>
         </div>
@@ -75,7 +75,7 @@ export default function Wholesale() {
 
       {/* DESNO — pogodnosti + asortiman */}
       <div className={styles.side}>
-        <p className={styles.sideLabel}>ŠTA DOBIJATE KAO PARTNER</p>
+        <p className={styles.sideLabel}>ŠTA DOBIJAŠ KAO PARTNER</p>
 
         <ol className={styles.list}>
           {benefits.map((b, i) => (

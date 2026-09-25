@@ -16,7 +16,7 @@
   .page { border-left: none; border-right: none; }
 }
 
-/* Mobilni: mesto za fiksnu traku POZOVI / PROCENA da ne prekrije footer */
+/* Mobilni: mesto za fiksnu traku MAPA / POZOVI da ne prekrije footer */
 @media (max-width: 720px) {
   .page { padding-bottom: calc(52px + env(safe-area-inset-bottom)); }
 }

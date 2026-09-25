@@ -28,8 +28,8 @@ export default function Hero() {
         </p>
 
         <div className={styles.buttons}>
-          <a href="#kontakt" className={styles.btnPrimary}>
-            <span className={styles.btnText}>ZATRAŽI PROCENU</span>
+          <a href={site.phones.primary.href} className={styles.btnPrimary}>
+            <span className={styles.btnText}>POZOVI {site.phones.primary.label}</span>
           </a>
           <a href="#radovi" className={styles.btnSecondary}>
             <span className={styles.btnText}>POGLEDAJ RADOVE</span>
@@ -39,7 +39,7 @@ export default function Hero() {
 
         <div className={styles.callRow}>
           <span className={styles.callLabel}>{hero.callLabel}</span>
-          <Phone phone={site.phones.mobile} className={styles.callPhone} />
+          <Phone phone={site.phones.secondary} className={styles.callPhone} />
         </div>
       </div>
 

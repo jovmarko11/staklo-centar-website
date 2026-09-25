@@ -11,6 +11,8 @@ const END = 22;   // …do 22h
 const SPAN = END - START;
 
 const pad = (n) => String(n).padStart(2, "0");
+// 8 → "08", 8.5 → "08:30"
+const fmt = (h) => (h % 1 === 0 ? pad(h) : `${pad(Math.floor(h))}:${pad(Math.round((h % 1) * 60))}`);
 
 // Dan i sat se računaju po vremenu u Srbiji, ne po satu posetioca
 // (da i neko iz inostranstva vidi tačno "otvoreno / zatvoreno").
@@ -47,7 +49,7 @@ export default function OpeningHours({ hours }) {
 
   const rows = hours.map((h) => {
     const known = h.closed || (h.open != null && h.close != null);
-    const text = h.closed ? "Zatvoreno" : known ? `${pad(h.open)}–${pad(h.close)}h` : "[XX–XXh]";
+    const text = h.closed ? "Zatvoreno" : known ? `${fmt(h.open)}–${fmt(h.close)}h` : "[XX–XXh]";
     const isToday = today != null && h.days.includes(today);
     const isOpen = isToday && known && !h.closed && hourNow >= h.open && hourNow < h.close;
     return { ...h, known, text, isToday, isOpen };

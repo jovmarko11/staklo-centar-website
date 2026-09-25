@@ -2,12 +2,12 @@ import { site, contact } from "@/lib/content";
 import OpeningHours from "./OpeningHours";
 import styles from "./Contact.module.css";
 
-// Forma "Zatraži besplatnu procenu" dolazi kasnije (treba backend).
-// Do tada levo su telefoni i šta pripremiti za poziv.
+// Sajt nema formu (P74) — levo su telefoni i šta pripremiti za poziv.
 
+const { primary, secondary } = site.phones;
 const phones = [
-  { number: site.phones.landline.label, href: site.phones.landline.href, label: site.landlineIs24h ? "DEŽURNI TELEFON" : "TELEFON", big: true },
-  { number: site.phones.mobile.label, href: site.phones.mobile.href, label: "MOBILNI" },
+  { number: primary.label, href: primary.href, label: site.primaryIs24h ? "DEŽURNI TELEFON" : primary.title, big: true },
+  { number: secondary.label, href: secondary.href, label: secondary.title },
 ];
 
 function PhoneRow({ phone }) {
@@ -37,8 +37,14 @@ function Checkbox() {
 // Placeholder mape: mreža kao milimetarski papir, krugovi udaljenosti i oznaka lokacije.
 function MapPlaceholder() {
   const { lat, lng } = site.coords;
+  // Cela mapa je link ka Google mapama (ako postoji), inače običan blok.
+  const Tag = site.mapsUrl ? "a" : "div";
+  const linkProps = site.mapsUrl
+    ? { href: site.mapsUrl, target: "_blank", rel: "noopener noreferrer", "aria-label": "Otvori lokaciju u Google mapama" }
+    : {};
   return (
-    <div className={styles.map}>
+    <Tag className={styles.map} {...linkProps}>
+      {site.mapsUrl && <span className={styles.mapOpen}>OTVORI U MAPAMA ↗</span>}
       <div className={styles.rings} aria-hidden="true">
         <span /><span /><span />
       </div>
@@ -50,7 +56,9 @@ function MapPlaceholder() {
       </svg>
 
       <div className={styles.mapLabel}>
-        <span className={styles.mapTitle}>MAPA — {site.city.toUpperCase()}</span>
+        <span className={styles.mapTitle}>
+          MAPA — {(site.address.municipality ?? site.city).toUpperCase()}
+        </span>
         <span className={styles.mapCoords}>
           {lat.toFixed(4)}° N · {lng.toFixed(4)}° E
         </span>
@@ -60,12 +68,12 @@ function MapPlaceholder() {
         <span className={styles.mapScaleBar} />
         <span>200 m</span>
       </div>
-    </div>
+    </Tag>
   );
 }
 
 export default function Contact() {
-  const { street, zip, city } = site.address;
+  const { street, zip, city, municipality } = site.address;
 
   return (
     <section id="kontakt" className={styles.contact}>
@@ -78,10 +86,11 @@ export default function Contact() {
 
         <h2 className={styles.title}>
           <span className={styles.long}>{contact.title}</span>
-          <span className={styles.short}>Kontakt</span>
+          <span className={styles.short}>{contact.titleShort}</span>
         </h2>
         <p className={styles.lead}>
-          {contact.lead} {site.responseTime}
+          {contact.lead}
+          {site.responseTime && ` ${site.responseTime}`}
         </p>
 
         <div className={styles.phones}>
@@ -114,7 +123,7 @@ export default function Contact() {
           <address className={styles.address}>
             {street}
             <br />
-            {zip} {city}
+            {zip} {municipality ? `${municipality}, ${city}` : city}
           </address>
         </div>
 

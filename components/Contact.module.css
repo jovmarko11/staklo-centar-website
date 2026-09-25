@@ -184,6 +184,8 @@
 /* ---- mapa (placeholder) ---- */
 .map {
   position: relative;
+  display: block;
+  color: inherit;
   flex: 1;
   min-height: 240px;
   overflow: hidden;
@@ -309,3 +311,20 @@
   .map { min-height: 180px; }
   .rings span:nth-child(3) { display: none; }
 }
+
+/* dugme "OTVORI U MAPAMA" u gornjem desnom uglu mape */
+.mapOpen {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  z-index: 1;
+  padding: 8px 12px;
+  background: var(--c-bg);
+  border: 1px solid var(--c-line-strong);
+  font: 700 10px var(--f-display);
+  letter-spacing: 0.14em;
+  color: var(--c-ink);
+  transition: background-color 0.2s, border-color 0.2s;
+}
+a.map:hover .mapOpen { background: var(--c-accent); border-color: var(--c-accent); }
+a.map:hover { color: inherit; }

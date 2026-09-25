@@ -28,13 +28,13 @@ export default function Header() {
       <div className={styles.actions}>
         <div className={styles.phoneBox}>
           <span className={styles.phoneLabel}>
-            {site.landlineIs24h && <span className={styles.live} aria-hidden="true" />}
-            {site.landlineIs24h ? "DEŽURNI TELEFON" : "TELEFON"}
+            {site.primaryIs24h && <span className={styles.live} aria-hidden="true" />}
+            {site.primaryIs24h ? "DEŽURNI TELEFON" : "TELEFON"}
           </span>
-          <Phone phone={site.phones.landline} className={styles.phone} />
+          <Phone phone={site.phones.primary} className={styles.phone} />
         </div>
-        <a href="#kontakt" className={styles.cta}>
-          <span className={styles.ctaText}>ZATRAŽI PROCENU</span>
+        <a href={site.phones.primary.href} className={styles.cta}>
+          <span className={styles.ctaText}>POZOVI</span>
           <span className={styles.ctaArrow} aria-hidden="true">→</span>
         </a>
       </div>

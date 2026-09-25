@@ -1,14 +1,15 @@
 import DimensionLine from "./ui/DimensionLine";
-import { services } from "@/lib/content";
+import { site, services } from "@/lib/content";
 import { ICONS } from "./ui/icons";
 import styles from "./Services.module.css";
 
 export default function Services() {
+  const n = services.items.length;
   return (
     <section id="usluge" className={styles.services}>
       <div className={styles.head}>
         <h2 className={styles.title}>Usluge</h2>
-        <DimensionLine label={`${String(services.items.length).padStart(2, "0")} USLUGA · PROCENA PO MODELU`} className={styles.dimension} />
+        <DimensionLine label={`${String(n).padStart(2, "0")} ${n % 10 >= 2 && n % 10 <= 4 && (n < 12 || n > 14) ? "USLUGE" : "USLUGA"} · PROCENA PO MODELU`} className={styles.dimension} />
         <p className={styles.intro}>
           {services.intro}
         </p>
@@ -33,13 +34,15 @@ export default function Services() {
               )}
             </h3>
 
-            <p className={styles.desc}>
-              <span className={styles.long}>{s.desc}</span>
-              <span className={styles.short}>{s.short}</span>
-            </p>
+            {s.desc && (
+              <p className={styles.desc}>
+                <span className={styles.long}>{s.desc}</span>
+                <span className={styles.short}>{s.short}</span>
+              </p>
+            )}
 
-            <a href="#kontakt" className={styles.link}>
-              PROCENA <span className={styles.arrow} aria-hidden="true">→</span>
+            <a href={site.phones.primary.href} className={styles.link}>
+              POZOVI <span className={styles.arrow} aria-hidden="true">→</span>
             </a>
           </li>
           );
