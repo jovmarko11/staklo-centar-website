@@ -8,7 +8,8 @@ const { primary, secondary } = site.phones;
 const phones = [
   { number: primary.label, href: primary.href, label: site.primaryIs24h ? "DEŽURNI TELEFON" : primary.title, big: true },
   { number: secondary.label, href: secondary.href, label: secondary.title },
-];
+  site.email && { number: site.email, href: `mailto:${site.email}`, label: "EMAIL", hint: "PIŠI" },
+].filter(Boolean);
 
 function PhoneRow({ phone }) {
   // Ako imamo pravi broj → ceo red je link za poziv; inače običan blok.
@@ -20,7 +21,7 @@ function PhoneRow({ phone }) {
     >
       <span className={styles.phoneLabel}>{phone.label}</span>
       <span className={styles.phoneNumber}>{phone.number}</span>
-      <span className={styles.callHint} aria-hidden="true">POZOVI →</span>
+      <span className={styles.callHint} aria-hidden="true">{phone.hint ?? "POZOVI"} →</span>
     </Tag>
   );
 }

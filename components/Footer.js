@@ -1,4 +1,5 @@
 import { site, isLinkActive } from "@/lib/content";
+import { isReal } from "@/lib/seo";
 import Phone from "./Phone";
 import LogoMark from "./ui/LogoMark";
 import styles from "./Footer.module.css";
@@ -31,6 +32,16 @@ const titleBlock = [
   { k: "Razmera", v: "1 : 1" },
   { k: "List", v: "01 / 01" },
 ];
+
+// Zvanični podaci o firmi (Zakon o elektronskoj trgovini, čl. 6).
+// Placeholderi ("[MATIČNI BROJ]") se ne prikazuju dok se ne upiše pravi podatak.
+const legal = [
+  { k: "Poslovno ime", v: site.legalName },
+  { k: "Sedište", v: site.legalSeat },
+  { k: "Registar", v: site.registry },
+  { k: "Matični broj", v: site.mb },
+  { k: "PIB", v: site.pib },
+].filter((i) => isReal(i.v));
 
 // Veliki natpis kao SVG: textLength ga uvek razvuče tačno na širinu, na svakom ekranu.
 function Wordmark() {
@@ -78,6 +89,9 @@ export default function Footer() {
             <p className={styles.colTitle}>Kontakt</p>
             <Phone phone={site.phones.primary} className={styles.link} />
             <Phone phone={site.phones.secondary} className={styles.link} />
+            {site.email && (
+              <a href={`mailto:${site.email}`} className={styles.link}>{site.email}</a>
+            )}
             <span className={styles.link}>{site.address.street}, {site.address.municipality ?? site.address.city}</span>
           </div>
         </nav>
@@ -107,6 +121,16 @@ export default function Footer() {
           </span>
         </a>
       </div>
+
+      {/* ---- zvanični podaci (APR) ---- */}
+      <dl className={styles.legal}>
+        {legal.map((i) => (
+          <div key={i.k} className={styles.legalItem}>
+            <dt className={styles.legalKey}>{i.k}</dt>
+            <dd className={styles.legalValue}>{i.v}</dd>
+          </div>
+        ))}
+      </dl>
 
       <p className={styles.copy}>
         © {year} {site.fullName.toUpperCase()}. SVA PRAVA ZADRŽANA.

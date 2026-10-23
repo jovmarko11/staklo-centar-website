@@ -185,6 +185,27 @@ a.link:hover::before { width: 10px; margin-right: 8px; }
 }
 .toTop:hover .toTopArrow { transform: translateY(-4px); }
 
+/* ================= zvanični podaci ================= */
+.legal {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 28px;
+  margin: 0;
+  padding: 18px 40px 0;
+}
+.legalItem { display: flex; align-items: baseline; gap: 8px; }
+.legalKey {
+  font: 600 10.5px var(--f-body);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--c-ink-4);
+}
+.legalValue {
+  margin: 0;
+  font: 400 13px/1.5 var(--f-body);
+  color: var(--c-ink-3);
+}
+
 .copy {
   padding: 16px 40px;
   font: 400 13px var(--f-body);
@@ -213,5 +234,7 @@ a.link:hover::before { width: 10px; margin-right: 8px; }
   .cell, .cell:first-child, .cell:nth-child(3n + 1) { padding: 10px 16px; }
   .cellValue { font-size: 12px; }
 
+  .legal { flex-direction: column; padding: 16px 16px 0; }
+  .legalValue { font-size: 12px; }
   .copy { padding: 14px 16px; font-size: 12px; }
 }
