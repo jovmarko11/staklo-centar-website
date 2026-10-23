@@ -35,17 +35,28 @@ function Checkbox() {
   );
 }
 
-// Placeholder mape: mreža kao milimetarski papir, krugovi udaljenosti i oznaka lokacije.
-function MapPlaceholder() {
+// Mapa: Google Maps embed (osnovni sloj), centriran tačno na koordinate radionice
+// (site.coords). Ne treba API ključ. Iframe služi kao "slika" — ne reaguje na miš,
+// a klik bilo gde na mapu otvara lokaciju u Google mapama (site.mapsUrl).
+// Narandžasti nišan u centru = tačna lokacija.
+const MAP_ZOOM = 16; // veći broj = bliže (15 kvart, 17 ulica)
+
+function LocationMap() {
   const { lat, lng } = site.coords;
-  // Cela mapa je link ka Google mapama (ako postoji), inače običan blok.
-  const Tag = site.mapsUrl ? "a" : "div";
-  const linkProps = site.mapsUrl
-    ? { href: site.mapsUrl, target: "_blank", rel: "noopener noreferrer", "aria-label": "Otvori lokaciju u Google mapama" }
-    : {};
+  const embedSrc = `https://maps.google.com/maps?ll=${lat},${lng}&z=${MAP_ZOOM}&t=m&output=embed`;
+
   return (
-    <Tag className={styles.map} {...linkProps}>
-      {site.mapsUrl && <span className={styles.mapOpen}>OTVORI U MAPAMA ↗</span>}
+    <div className={styles.map}>
+      <iframe
+        src={embedSrc}
+        title="Mapa — lokacija radionice"
+        className={styles.mapFrame}
+        loading="lazy"
+        referrerPolicy="no-referrer-when-downgrade"
+        tabIndex={-1}
+        aria-hidden="true"
+      />
+
       <div className={styles.rings} aria-hidden="true">
         <span /><span /><span />
       </div>
@@ -65,11 +76,19 @@ function MapPlaceholder() {
         </span>
       </div>
 
-      <div className={styles.mapScale} aria-hidden="true">
-        <span className={styles.mapScaleBar} />
-        <span>200 m</span>
-      </div>
-    </Tag>
+      {/* providan link preko cele mape */}
+      {site.mapsUrl && (
+        <a
+          href={site.mapsUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className={styles.mapLink}
+          aria-label="Otvori lokaciju u Google mapama"
+        >
+          <span className={styles.mapOpen}>OTVORI U MAPAMA ↗</span>
+        </a>
+      )}
+    </div>
   );
 }
 
@@ -128,7 +147,7 @@ export default function Contact() {
           </address>
         </div>
 
-        <MapPlaceholder />
+        <LocationMap />
       </div>
     </section>
   );

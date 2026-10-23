@@ -120,11 +120,12 @@ a.link:hover::before { width: 10px; margin-right: 8px; }
   font: 400 15px/1.5 var(--f-body);
 }
 .hoursRow:first-child { padding-top: 0; }
-.hoursRow dt { color: var(--c-ink-4); }
+.hoursRow dt { color: var(--c-ink-4); white-space: nowrap; }
 .hoursRow dd {
   margin: 0;
   font-weight: 500;
   font-variant-numeric: tabular-nums;
+  white-space: nowrap;
 }
 .hoursRow dd.closed { color: var(--c-ink-4); font-weight: 400; }
 
@@ -185,7 +186,7 @@ a.link:hover::before { width: 10px; margin-right: 8px; }
 /* ============ responsive ============ */
 
 /* tablet: 2 × 2 kolone, sastavnica u dva reda */
-@media (max-width: 1000px) {
+@media (max-width: 1100px) {
   .top { grid-template-columns: 1fr 1fr; }
   .col:nth-child(3) { border-left: none; padding-left: 40px; }
   .col:nth-child(n + 3) { border-top: 1px solid var(--c-line); }
