@@ -16,6 +16,13 @@
   --c-ink-3:       #4B4B46;  /* body tekst */
   --c-ink-4:       #6E6E68;  /* labele, meta */
 
+  /* tamni footer */
+  --c-dark:        #0F0F0E;  /* pozadina footera */
+  --c-dark-line:   #2B2B28;  /* linije mreže na tamnom */
+  --c-dark-ink:    #F3F3F1;  /* glavni tekst na tamnom */
+  --c-dark-ink-2:  #A6A69F;  /* sporedni tekst na tamnom */
+  --c-dark-ink-3:  #7D7D76;  /* labele na tamnom */
+
   /* placeholderi za slike/mapu dok ne stignu prave */
   --c-ph-dark:     #E8E8E4;
   --c-ph-light:    #F6F6F3;

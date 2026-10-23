@@ -1,140 +1,117 @@
-import { site, isLinkActive } from "@/lib/content";
+import { site, nav, isLinkActive } from "@/lib/content";
 import { isReal } from "@/lib/seo";
 import Phone from "./Phone";
-import LogoMark from "./ui/LogoMark";
+import Image from "next/image";
 import styles from "./Footer.module.css";
 
-const columns = [
-  {
-    title: "Usluge",
-    links: [
-      { label: "Šoferšajbne", href: "#usluge" },
-      { label: "Bočna i zadnja", href: "#usluge" },
-      { label: "ADAS kalibracija", href: "#usluge" },
-    ],
-  },
-  {
-    title: "Firma",
-    links: [
-      { label: "O nama", href: "#zasto-mi" }, // → /o-nama kad napravimo stranu
-      { label: "Radovi", href: "#radovi" },
-      { label: "Za servise", href: "#za-servise" },
-    ],
-  },
-];
+// 8.5 → "08:30", 14 → "14:00"
+const pad = (n) => String(n).padStart(2, "0");
+const hhmm = (h) => `${pad(Math.floor(h))}:${pad(Math.round((h % 1) * 60))}`;
 
-// "Sastavnica" — tabela u uglu svakog tehničkog crteža. Potpis sajta.
-const year = new Date().getFullYear();
-const titleBlock = [
-  { k: "Naziv", v: site.fullName },
-  { k: "Delatnost", v: "Prodaja i ugradnja auto-stakala" },
-  { k: "Lokacija", v: `${site.city}, Srbija` },
-  { k: "Razmera", v: "1 : 1" },
-  { k: "List", v: "01 / 01" },
-];
-
-// Zvanični podaci o firmi (Zakon o elektronskoj trgovini, čl. 6).
+// Zvanični podaci o firmi — Zakon o elektronskoj trgovini (čl. 6) traži da budu
+// stalno dostupni. Prikazani kao "sastavnica" tehničkog crteža.
 // Placeholderi ("[MATIČNI BROJ]") se ne prikazuju dok se ne upiše pravi podatak.
 const legal = [
-  { k: "Poslovno ime", v: site.legalName },
+  { k: "Poslovno ime", v: site.legalName, wide: true },
   { k: "Sedište", v: site.legalSeat },
   { k: "Registar", v: site.registry },
   { k: "Matični broj", v: site.mb },
   { k: "PIB", v: site.pib },
 ].filter((i) => isReal(i.v));
 
-// Veliki natpis kao SVG: textLength ga uvek razvuče tačno na širinu, na svakom ekranu.
-function Wordmark() {
+const year = new Date().getFullYear();
+
+function ColTitle({ children }) {
   return (
-    <svg className={styles.wordmark} viewBox="0 0 1000 124" role="img" aria-label={site.name}>
-      <defs>
-        <clipPath id="wordmark-fill">
-          <rect className={styles.wordmarkWipe} x="0" y="0" width="1000" height="124" />
-        </clipPath>
-      </defs>
-      <text x="0" y="112" textLength="1000" lengthAdjust="spacingAndGlyphs" className={styles.wordmarkOutline}>
-        {site.name.toUpperCase()}
-      </text>
-      <text x="0" y="112" textLength="1000" lengthAdjust="spacingAndGlyphs" className={styles.wordmarkFill} clipPath="url(#wordmark-fill)">
-        {site.name.toUpperCase()}
-      </text>
-    </svg>
+    <p className={styles.colTitle}>
+      <span className={styles.dash} aria-hidden="true" />
+      {children}
+    </p>
   );
 }
 
 export default function Footer() {
+  const { primary, secondary } = site.phones;
+  const { street, zip, municipality, city } = site.address;
+
   return (
     <footer className={styles.footer}>
-      {/* ---- gornji deo: brend + kolone ---- */}
+      {/* ================= gornji deo: 4 kolone ================= */}
       <div className={styles.top}>
-        <div className={styles.brand}>
-          <span className={styles.logo} aria-hidden="true"><LogoMark className={styles.logoMark} /></span>
-          <div>
-            <p className={styles.brandName}>{site.fullName.toUpperCase()}</p>
-            <p className={styles.tagline}>{site.tagline}</p>
-          </div>
+        {/* ---- brend + glavni poziv ---- */}
+        <div className={`${styles.col} ${styles.brandCol}`}>
+          <Image src="/logo.svg" alt={site.fullName} width={342} height={157} unoptimized className={styles.logo} />
+          <p className={styles.tagline}>{site.tagline}</p>
+
+          {primary.href && (
+            <a href={primary.href} className={styles.cta}>
+              <span className={styles.ctaLabel}>POZOVI</span>
+              <span className={styles.ctaNumber}>{primary.label}</span>
+              <span className={styles.ctaArrow} aria-hidden="true">→</span>
+            </a>
+          )}
         </div>
 
-        <nav className={styles.columns} aria-label="Linkovi u podnožju">
-          {columns.map((col) => (
-            <div key={col.title} className={styles.col}>
-              <p className={styles.colTitle}>{col.title}</p>
-              {col.links.filter((l) => isLinkActive(l.href)).map((l) => (
-                <a key={l.label} href={l.href} className={styles.link}>{l.label}</a>
-              ))}
-            </div>
+        {/* ---- meni ---- */}
+        <nav className={`${styles.col} ${styles.navCol}`} aria-label="Linkovi u podnožju">
+          <ColTitle>Meni</ColTitle>
+          {nav.filter((l) => isLinkActive(l.href)).map((l) => (
+            <a key={l.href} href={l.href} className={styles.link}>{l.label}</a>
           ))}
-
-          <div className={styles.col}>
-            <p className={styles.colTitle}>Kontakt</p>
-            <Phone phone={site.phones.primary} className={styles.link} />
-            <Phone phone={site.phones.secondary} className={styles.link} />
-            {site.email && (
-              <a href={`mailto:${site.email}`} className={styles.link}>{site.email}</a>
-            )}
-            <span className={styles.link}>{site.address.street}, {site.address.municipality ?? site.address.city}</span>
-          </div>
         </nav>
+
+        {/* ---- kontakt ---- */}
+        <div className={styles.col}>
+          <ColTitle>Kontakt</ColTitle>
+          <Phone phone={primary} className={styles.link} />
+          <Phone phone={secondary} className={styles.link} />
+          {site.email && (
+            <a href={`mailto:${site.email}`} className={styles.link}>{site.email}</a>
+          )}
+          <a
+            href={site.mapsUrl ?? "#kontakt"}
+            className={`${styles.link} ${styles.address}`}
+            {...(site.mapsUrl ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+          >
+            {street}
+            <br />
+            {zip} {municipality ? `${municipality}, ${city}` : city}
+          </a>
+        </div>
+
+        {/* ---- radno vreme ---- */}
+        <div className={styles.col}>
+          <ColTitle>Radno vreme</ColTitle>
+          <dl className={styles.hours}>
+            {site.hours.map((h) => (
+              <div key={h.label} className={styles.hoursRow}>
+                <dt>{h.label}</dt>
+                <dd className={h.closed ? styles.closed : undefined}>
+                  {h.closed ? "Zatvoreno" : `${hhmm(h.open)}–${hhmm(h.close)}`}
+                </dd>
+              </div>
+            ))}
+          </dl>
+        </div>
       </div>
 
-      {/* ---- veliki natpis sa oznakama za sečenje u uglovima ---- */}
-      <div className={styles.wordmarkWrap}>
-        <span className={`${styles.crop} ${styles.cropTL}`} aria-hidden="true" />
-        <span className={`${styles.crop} ${styles.cropTR}`} aria-hidden="true" />
-        <span className={`${styles.crop} ${styles.cropBL}`} aria-hidden="true" />
-        <span className={`${styles.crop} ${styles.cropBR}`} aria-hidden="true" />
-        <Wordmark />
-      </div>
-
-      {/* ---- sastavnica ---- */}
-      <div className={styles.titleBlock}>
-        {titleBlock.map((c) => (
-          <div key={c.k} className={styles.cell}>
-            <span className={styles.cellKey}>{c.k}</span>
-            <span className={styles.cellValue}>{c.v}</span>
-          </div>
-        ))}
-        <a href="#" className={`${styles.cell} ${styles.toTop}`}>
-          <span className={styles.cellKey}>Nazad</span>
-          <span className={styles.cellValue}>
-            NA VRH <span className={styles.toTopArrow} aria-hidden="true">↑</span>
-          </span>
-        </a>
-      </div>
-
-      {/* ---- zvanični podaci (APR) ---- */}
+      {/* ================= sastavnica: zvanični podaci (APR) ================= */}
       <dl className={styles.legal}>
         {legal.map((i) => (
-          <div key={i.k} className={styles.legalItem}>
-            <dt className={styles.legalKey}>{i.k}</dt>
-            <dd className={styles.legalValue}>{i.v}</dd>
+          <div key={i.k} className={`${styles.cell} ${i.wide ? styles.cellWide : ""}`}>
+            <dt className={styles.cellKey}>{i.k}</dt>
+            <dd className={styles.cellValue}>{i.v}</dd>
           </div>
         ))}
       </dl>
 
-      <p className={styles.copy}>
-        © {year} {site.fullName.toUpperCase()}. SVA PRAVA ZADRŽANA.
-      </p>
+      {/* ================= dno ================= */}
+      <div className={styles.bottom}>
+        <p>© {year} {site.fullName}. Sva prava zadržana.</p>
+        <a href="#" className={styles.toTop}>
+          Na vrh <span className={styles.toTopArrow} aria-hidden="true">↑</span>
+        </a>
+      </div>
     </footer>
   );
 }

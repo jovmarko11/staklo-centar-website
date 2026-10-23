@@ -1,6 +1,6 @@
 import { site, nav, isLinkActive } from "@/lib/content";
 import Phone from "./Phone";
-import LogoMark from "./ui/LogoMark";
+import Image from "next/image";
 import styles from "./Header.module.css";
 
 export default function Header() {
@@ -8,10 +8,10 @@ export default function Header() {
     <header className={styles.header}>
       {/* BLOK 1 — brend */}
       <a href="#" className={styles.brand} aria-label={`${site.fullName} — početak strane`}>
-        <span className={styles.logo} aria-hidden="true"><LogoMark className={styles.logoMark} /></span>
-        <span className={styles.brandText}>
-          <span className={styles.brandName}>{site.name.toUpperCase()}</span>
-          <span className={styles.brandSub}>{site.headerSub}</span>
+        {/* zvanični logo (public/logo.svg) — SVG je oštar na svakoj veličini */}
+        <Image src="/logo.svg" alt="" width={342} height={157} priority unoptimized className={styles.logo} />
+        <span className={styles.brandSub}>
+          {site.headerSub.split(" / ").map((line) => <span key={line}>{line}</span>)}
         </span>
       </a>
 

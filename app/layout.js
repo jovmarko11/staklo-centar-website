@@ -61,7 +61,8 @@ export const viewport = {
 export default function RootLayout({ children }) {
   return (
     <html lang="sr-Latn" className={`${archivo.variable} ${plex.variable}`}>
-      <body>
+      {/* suppressHydrationWarning: ekstenzije (npr. Grammarly) dodaju atribute na <body> pre nego što se React učita */}
+      <body suppressHydrationWarning>
         <JsonLd data={businessJsonLd()} />
         {children}
       </body>

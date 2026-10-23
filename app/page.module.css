@@ -16,7 +16,5 @@
   .page { border-left: none; border-right: none; }
 }
 
-/* Mobilni: mesto za fiksnu traku MAPA / POZOVI da ne prekrije footer */
-@media (max-width: 720px) {
-  .page { padding-bottom: calc(52px + env(safe-area-inset-bottom)); }
-}
+/* Mobilni: mesto za fiksnu traku MAPA / POZOVI je u footeru (Footer.module.css),
+   da prostor ispod nje bude tamne boje footera, a ne beo. */

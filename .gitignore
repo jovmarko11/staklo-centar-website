@@ -4,3 +4,6 @@ out/
 .env*.local
 .DS_Store
 .idea/
+
+# izvorni fajlovi od dizajnera/fotografa (na sajt idu obrađene verzije iz public/)
+LOGO/
