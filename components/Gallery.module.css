@@ -15,13 +15,6 @@
   white-space: nowrap;
 }
 
-.more {
-  font: 600 12px var(--f-body);
-  letter-spacing: 0.14em;
-  color: var(--c-accent);
-  white-space: nowrap;
-}
-
 /* ================= kartice ================= */
 .grid {
   list-style: none;
@@ -61,150 +54,47 @@
 .card:hover .cBL { transform: translate(-6px, 6px); }
 .card:hover .cBR { transform: translate(6px, 6px); }
 
-/* ---- PRE | POSLE sa pomičnim razdelnikom ----
-   Na hover razdelnik "klizne" ulevo i POSLE zauzme veći deo (kao slajder). */
-.pair {
-  position: relative;
-  display: grid;
-  grid-template-columns: 1fr 0px 1fr;
-  height: 190px;
-  transition: grid-template-columns 0.6s cubic-bezier(0.22, 1, 0.36, 1);
-}
-.card:hover .pair { grid-template-columns: 0.45fr 0px 1.55fr; }
-
+/* ---- fotografija: kvadrat, na hover blago "priđe" ---- */
 .photo {
   position: relative;
-  display: flex;
-  align-items: flex-end;
-  justify-content: center;
-  padding: 10px;
+  aspect-ratio: 1 / 1;
   overflow: hidden;
+  background: var(--c-ph-dark);
 }
-.before { background: var(--c-ph-dark); }
-.after  { background: var(--c-ph-light); }
 
 .img {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
   object-fit: cover;
+  transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
 }
+.card:hover .img { transform: scale(1.04); }
 
+/* oznaka "RAD 01" u uglu, kao broj lista na crtežu */
 .tag {
   position: absolute;
-  left: 10px;
-  bottom: 10px;
+  left: 0;
+  top: 0;
   z-index: 1;
-  padding: 3px 6px;
+  padding: 5px 9px;
   background: var(--c-bg);
   font: 700 10px var(--f-display);
   letter-spacing: 0.16em;
   color: var(--c-ink-4);
+  transition: background-color 0.25s, color 0.25s;
 }
-.after .tag { background: var(--c-accent); color: var(--c-ink); }
-
-/* razdelnik sa ručicom */
-.divider {
-  position: relative;
-  z-index: 1;
-  width: 0;
-}
-.divider::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: -1px;
-  width: 2px;
-  background: var(--c-bg);
-}
-.handle {
-  position: absolute;
-  top: 50%;
-  left: -11px;
-  width: 22px;
-  height: 22px;
-  margin-top: -11px;
-  background: var(--c-bg);
-  border: 1px solid var(--c-line-strong);
-  transition: border-color 0.25s, background-color 0.25s;
-}
-/* strelice ◂ ▸ u ručici */
-.handle::before,
-.handle::after {
-  content: "";
-  position: absolute;
-  top: 50%;
-  width: 5px;
-  height: 5px;
-  margin-top: -2.5px;
-  border-top: 1.2px solid var(--c-ink-4);
-  border-left: 1.2px solid var(--c-ink-4);
-}
-.handle::before { left: 4px; transform: rotate(-45deg); }
-.handle::after  { right: 4px; transform: rotate(135deg); }
-.card:hover .handle { border-color: var(--c-accent); background: var(--c-accent); }
-.card:hover .handle::before,
-.card:hover .handle::after { border-color: var(--c-ink); }
-
-/* ---- tehnički crtež u polju (placeholder) ---- */
-.art {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 150px;
-  max-width: 88%;
-  transform: translate(-50%, -54%);
-  overflow: visible;
-}
-.art * {
-  fill: none;
-  stroke-linecap: square;
-  stroke-dasharray: 1;
-  stroke-dashoffset: 0;
-}
-.artShape { stroke: var(--c-ink-4); stroke-width: 1.3; }
-.artThin  { stroke: var(--c-ink-4); stroke-width: 1; }
-.artFov   { opacity: 0.6; }
-.artCrack { stroke: var(--c-ink-2); stroke-width: 1; }
-.artCheck { stroke: var(--c-accent); stroke-width: 2.2; }
-.artPost .artShape { stroke: var(--c-accent); }
-
-/* hover: pukotine i kvačica se ponovo iscrtaju */
-.card:hover .artCrack,
-.card:hover .artCheck,
-.card:hover .artPost .artShape {
-  animation: redraw 0.8s cubic-bezier(0.65, 0, 0.35, 1);
-}
-.card:hover .artCheck { animation-delay: 0.25s; animation-fill-mode: backwards; }
-@keyframes redraw { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
+.card:hover .tag { background: var(--c-accent); color: var(--c-ink); }
 
 /* ---- opis ---- */
 .caption {
-  display: grid;
-  grid-template-columns: auto 1fr auto;
-  align-items: center;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
   gap: 12px;
   padding: 12px 14px;
   border-top: 1px solid var(--c-line);
 }
 
-.code {
-  padding-right: 12px;
-  border-right: 1px solid var(--c-line);
-  font: 700 10px var(--f-display);
-  letter-spacing: 0.14em;
-  color: var(--c-accent);
-}
-
-.captionText { font: 600 13px var(--f-body); }
-
-.captionArrow {
-  color: var(--c-ink-4);
-  transition: transform 0.25s ease-out, color 0.25s;
-}
-.card:hover .captionArrow { transform: translateX(4px); color: var(--c-accent); }
+.captionTitle { font: 700 14px var(--f-display); letter-spacing: 0.01em; }
+.captionDesc { font: 400 13px var(--f-body); color: var(--c-ink-4); text-align: right; }
 
 .short { display: none; }
 
@@ -212,32 +102,28 @@
 
 @media (max-width: 1000px) {
   .dimension { display: none; }
-  .head { justify-content: space-between; }
 }
 
 @media (max-width: 900px) {
   .grid { grid-template-columns: repeat(2, 1fr); }
 }
 
-/* Mobilni — po dizajnu: "Radovi", mreža 2×2 malih pločica */
+/* Mobilni: "Radovi", mreža 2 kolone; ispod slike samo naziv vozila */
 @media (max-width: 720px) {
   .gallery { padding: 26px 16px 0; border-bottom: none; }
 
   .head { margin-bottom: 14px; }
   .title { font-size: 26px; line-height: 1.2; }
-  .long, .more { display: none; }
+  .long { display: none; }
   .short { display: inline; }
 
   .grid { gap: 8px; }
-  .card { border: none; }
-  .card:nth-child(n + 5) { display: none; }
-  .crop, .tag, .caption, .handle { display: none; }
-  .pair { height: 92px; }
-  .card:hover .pair { grid-template-columns: 1fr 0px 1fr; }
-  .art { width: 80px; }
+  .crop, .captionDesc { display: none; }
+  .tag { padding: 3px 6px; font-size: 9px; }
+  .caption { padding: 8px 10px; }
+  .captionTitle { font-size: 12px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .pair { transition: none; }
-  .card:hover .artCrack, .card:hover .artCheck, .card:hover .artPost .artShape { animation: none; }
+  .card:hover .img { transform: none; }
 }
