@@ -5,7 +5,7 @@ import styles from "./Gallery.module.css";
 import { works } from "@/lib/content";
 
 // Radovi (vozilo, opis, putanja do fotografije) se upisuju u lib/content.js → `works`.
-// next/image sam pravi manje verzije slike za telefon i lazy-load (učitava tek kad se skroluje do nje).
+// Slike su ručno pripremljene (800×800, ~100 KB); next/image ih učitava tek kad se skroluje do galerije (lazy-load).
 
 const pad = (n) => String(n).padStart(2, "0");
 
